@@ -389,9 +389,10 @@ const EARNING_TIPS: Record<string, string> = {
   "1Win Token Bot": "💡 Completa las misiones del bot diariamente. Acumula tokens y espera el listing para venderlos al mejor precio.",
 };
 
-/* ── REF ITEM ── */
+/* ── REF ITEM (OPTIMIZADO: SOLO .JPG) ── */
 function RefItem({ item }: { item: RefItem }) {
-  const [imgFormat, setImgFormat] = useState<"jpg"|"jpeg"|"png"|"remote"|"favicon"|"none">("jpg");
+  // Simplificado: Solo busca .jpg, luego remote, luego favicon
+  const [imgFormat, setImgFormat] = useState<"jpg" | "remote" | "favicon" | "none">("jpg");
   const [bannerError, setBannerError] = useState(false);
   const logoUrl = getLogoUrl(item.name);
   const faviconUrl = getFaviconUrl(item.name);
@@ -399,30 +400,27 @@ function RefItem({ item }: { item: RefItem }) {
   const slug = getImageSlug(item.name);
 
   const renderIcon = () => {
+    // 1. Intenta cargar el .jpg local
     if (imgFormat === "jpg") return (
       <img src={`/imagenes/${slug}.jpg`} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("png")}
+        onError={() => setImgFormat("remote")} // Si falla, salta directo al logo remoto
         style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
     );
-    if (imgFormat === "jpeg") return (
-      <img src={`/imagenes/${slug}.jpeg`} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("png")}
-        style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
-    );
-    if (imgFormat === "png") return (
-      <img src={`/imagenes/${slug}.png`} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("remote")}
-        style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
-    );
+    
+    // 2. Si falla el .jpg, intenta el logo remoto (Clearbit)
     if (imgFormat === "remote" && logoUrl) return (
       <img src={logoUrl} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("favicon")}
+        onError={() => setImgFormat("favicon")} // Si falla, intenta el favicon
         style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
     );
-    if ((imgFormat === "favicon" || imgFormat === "remote") && faviconUrl) return (
+    
+    // 3. Si falla el logo remoto, intenta el favicon de Google
+    if (imgFormat === "favicon" && faviconUrl) return (
       <img src={faviconUrl} alt={item.name} width={28} height={28}
         style={{ borderRadius:6, objectFit:"contain", flexShrink:0 }} />
     );
+    
+    // 4. Si todo falla, muestra un cuadro gris por defecto
     return <div style={{ width:28, height:28, borderRadius:6, background:"var(--dark4)", flexShrink:0 }} />;
   };
 
@@ -436,6 +434,7 @@ function RefItem({ item }: { item: RefItem }) {
           {item.badge}
         </span>
       </a>
+      
       {/* ── EARNING TIP BANNER ── */}
       {!isPending && EARNING_TIPS[item.name] && (
         <div style={{ display:"flex", alignItems:"flex-start", gap:12, padding:"12px 14px", background:"linear-gradient(135deg, #0A1628 0%, #0F2040 100%)", borderBottom:"0.5px solid var(--dark4)" }}>
@@ -445,10 +444,12 @@ function RefItem({ item }: { item: RefItem }) {
             width={44} height={44}
             onError={(e) => {
               const t = e.currentTarget;
-              if (t.src.endsWith(".jpg")) { t.src = `/imagenes/${slug}.jpeg`; }
-              else if (t.src.endsWith(".jpeg")) { t.src = `/imagenes/${slug}.png`; }
-              else if (t.src.endsWith(".png") && logoUrl) { t.src = logoUrl; }
-              else { t.style.display = "none"; }
+              // Simplificado: si falla el .jpg, intenta el logo remoto directamente
+              if (t.src.endsWith(".jpg") && logoUrl) { 
+                t.src = logoUrl; 
+              } else { 
+                t.style.display = "none"; 
+              }
             }}
             style={{ objectFit:"contain", background:"white", borderRadius:8, padding:"4px", flexShrink:0 }}
           />
@@ -466,6 +467,7 @@ function RefItem({ item }: { item: RefItem }) {
           </div>
         </div>
       )}
+      
       {!isPending && item.desc && (
         <div style={{ padding:"10px 14px", background:"var(--dark2)", borderBottom:"0.5px solid var(--dark4)" }}>
           <p style={{ fontSize:12, color:"var(--text-muted)", lineHeight:1.6, marginBottom:8 }}>{item.desc}</p>
