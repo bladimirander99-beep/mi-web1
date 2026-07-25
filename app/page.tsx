@@ -27,7 +27,7 @@ const CATEGORIES: Category[] = [
       { name: "BingX",   href: "https://bingxdao.com/invite/PKG0CK/", badge: "Hasta $6,000 USDT", desc: "Exchange con copy trading integrado. Copia a los mejores traders y gana sin necesitar experiencia." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #3", href: "#", badge: " Próximo" },
+      { name: "Próximamente #3", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #4", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #5", href: "#", badge: "🔒 Próximo" },
     ],
@@ -55,7 +55,7 @@ const CATEGORIES: Category[] = [
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #3", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #4", href: "#", badge: " Próximo" },
+      { name: "Próximamente #4", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: CONFIGURA TU WALLET",
     steps: [
@@ -78,7 +78,7 @@ const CATEGORIES: Category[] = [
       { name: "Weltrade",    href: "https://track.gowt.me/visit/?bta=74709&brand=weltrade", badge: "Bono al registrarte", desc: "Broker Forex internacional regulado. Opera divisas y metales con spreads competitivos y retiros rápidos." },
       { name: "XM",          href: "https://www.xmglobal.com/referral?token=1jVIbOJXgELIltVKpTyjZg", badge: "Bono $30 sin depósito", desc: "Broker Forex regulado globalmente. Opera 1,000+ instrumentos con bono de $30 sin necesidad de depositar." },
       { name: "Deriv Trader", href: "https://deriv.partners/rx?sidc=15BA3885-70AD-45FF-955A-F3726D7C4884&utm_campaign=dynamicworks&utm_medium=affiliate&utm_source=CU74704", badge: "Cuenta demo gratis", desc: "Opera forex, opciones y sintéticos en la plataforma web de Deriv. Demo ilimitada sin depósito." },
-      { name: "Próximamente #1", href: "#", badge: " Próximo" },
+      { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: TU PRIMER TRADE RENTABLE",
@@ -218,7 +218,7 @@ const PLATAFORMAS = [
 const DONACIONES = [
   { icon:"🏦", name:"Banco Pichincha",    detail:"Cuenta: 2212006044",               href:"",                                        color:"#00C6FF" },
   { icon:"💳", name:"PayPal",             detail:"Donar desde $1 dólar",             href:"https://www.paypal.me/BladimirSantacruz", color:"#003087" },
-  { icon:"", name:"Binance Pay",        detail:"Próximamente",                     href:"",                                        color:"#F0B90B" },
+  { icon:"🟡", name:"Binance Pay",        detail:"Próximamente",                     href:"",                                        color:"#F0B90B" },
   { icon:"🔼", name:"Uphold",             detail:"Próximamente",                     href:"",                                        color:"#00C6FF" },
   { icon:"🏦", name:"Banco Bolivariano",  detail:"Próximamente",                     href:"",                                        color:"#00C6FF" },
   { icon:"🏦", name:"Banco Guayaquil",    detail:"Próximamente",                     href:"",                                        color:"#00C6FF" },
@@ -349,7 +349,7 @@ function getFaviconUrl(name: string) { const d = APP_DOMAINS[name]; return d ? `
 const EARNING_TIPS: Record<string, string> = {
   "Binance":        "💡 Copia las operaciones de traders top en Binance Copy Trading. Sin experiencia previa.",
   "CoinEx":         "💡 Usa el mercado de futuros en CoinEx: opera con $10 y aplica apalancamiento x5 para maximizar ganancias.",
-  "Margex":         " Activa el staking en Margex mientras tienes posiciones abiertas. Ganas intereses sin hacer nada extra.",
+  "Margex":         "💡 Activa el staking en Margex mientras tienes posiciones abiertas. Ganas intereses sin hacer nada extra.",
   "Bybit":          "💡 Copia traders profesionales en Bybit CopyTrade. Ellos operan, tú ganas % de sus beneficios.",
   "MEXC":           "💡 En MEXC compra altcoins nuevas antes del listado oficial. El precio puede subir 5x en horas.",
   "BingX":          "💡 Activa el Copy Trading de BingX: selecciona un trader con +80% win rate y copia sus trades automáticamente.",
@@ -358,9 +358,9 @@ const EARNING_TIPS: Record<string, string> = {
   "Speed Wallet":   "💡 Recibe pagos en Bitcoin Lightning al instante. Cobra servicios freelance sin comisiones bancarias.",
   "Base":           "💡 Usa la red Base para acceder a DeFi barato. Liquidity pools con rendimientos del 10% al 40% mensual.",
   "NC Wallet":      "💡 Invita amigos a NC Wallet y gana % de cada transacción que hagan. Sin límite de referidos.",
-  "Sweat Wallet":   " Camina 10,000 pasos al día y acumula SWEAT. Cambia tus tokens por dinero real en el exchange.",
+  "Sweat Wallet":   "💡 Camina 10,000 pasos al día y acumula SWEAT. Cambia tus tokens por dinero real en el exchange.",
   "Telegram Wallet":"💡 Recibe cripto directo en Telegram. Pide donaciones o pagos a tu comunidad sin salir del chat.",
-  "Pionex":         " Activa el bot Grid Trading de Pionex con $50. Opera 24/7 automáticamente y genera entre 1% y 5% mensual.",
+  "Pionex":         "💡 Activa el bot Grid Trading de Pionex con $50. Opera 24/7 automáticamente y genera entre 1% y 5% mensual.",
   "Bitget":         "💡 Copia al trader #1 de Bitget CopyTrade. Con $100 puedes ganar lo mismo que un profesional.",
   "Pocket IA":      "💡 Sigue las señales de IA de Pocket Option. La IA analiza el mercado y te dice cuándo entrar y salir.",
   "RoboForex":      "💡 Abre cuenta PAMM en RoboForex: invierte en cuentas de traders profesionales y gana % de sus ganancias.",
@@ -368,7 +368,7 @@ const EARNING_TIPS: Record<string, string> = {
   "Weltrade":       "💡 Usa la cuenta Cent de Weltrade para practicar con dinero real desde $1. Aprende sin arriesgar.",
   "XM":             "💡 Reclama el bono de $30 sin depósito de XM. Opera forex real sin poner dinero propio al inicio.",
   "Deriv Trader":   "💡 Prueba las opciones binarias de Deriv con la cuenta demo. Cuando domines la estrategia, opera real.",
-  "Pi Network":     " Mina Pi gratis una vez al día. Invita amigos para multiplicar tu velocidad de minería x3.",
+  "Pi Network":     "💡 Mina Pi gratis una vez al día. Invita amigos para multiplicar tu velocidad de minería x3.",
   "Degoo":          "💡 Invita 3 amigos a Degoo y consigue 1TB extra gratis. Ofrece almacenamiento a clientes como servicio.",
   "Reental":        "💡 Invierte desde €100 en propiedades tokenizadas. Recibe renta mensual en cripto sin ser propietario.",
   "RealT":          "💡 Compra fracciones de casas en USA desde $50. Recibe alquiler semanal en DAI directo a tu wallet.",
@@ -386,11 +386,12 @@ const EARNING_TIPS: Record<string, string> = {
   "Shappi":         "💡 Compra con Shappi y gana cripto de cashback. Invita amigos y gana % de sus compras de por vida.",
   "RollerCoin":     "💡 Juega los minijuegos de RollerCoin 30 min al día. Acumula poder de minería y gana BTC, ETH y DOGE reales.",
   "1Win":           "💡 Usa la estrategia Martingala con control en 1Win. Apuesta al equipo favorito con análisis previo.",
-  "1Win Token Bot": " Completa las misiones del bot diariamente. Acumula tokens y espera el listing para venderlos al mejor precio.",
+  "1Win Token Bot": "💡 Completa las misiones del bot diariamente. Acumula tokens y espera el listing para venderlos al mejor precio.",
 };
 
-/* ── REF ITEM (OPTIMIZADO: SOLO .JPG) ─ */
+/* ── REF ITEM (OPTIMIZADO: SOLO .JPG) ── */
 function RefItem({ item }: { item: RefItem }) {
+  // Simplificado: Solo busca .jpg, luego remote, luego favicon
   const [imgFormat, setImgFormat] = useState<"jpg" | "remote" | "favicon" | "none">("jpg");
   const [bannerError, setBannerError] = useState(false);
   const logoUrl = getLogoUrl(item.name);
@@ -399,20 +400,27 @@ function RefItem({ item }: { item: RefItem }) {
   const slug = getImageSlug(item.name);
 
   const renderIcon = () => {
+    // 1. Intenta cargar el .jpg local
     if (imgFormat === "jpg") return (
       <img src={`/imagenes/${slug}.jpg`} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("remote")}
+        onError={() => setImgFormat("remote")} // Si falla, salta directo al logo remoto
         style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
     );
+    
+    // 2. Si falla el .jpg, intenta el logo remoto (Clearbit)
     if (imgFormat === "remote" && logoUrl) return (
       <img src={logoUrl} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("favicon")}
+        onError={() => setImgFormat("favicon")} // Si falla, intenta el favicon
         style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
     );
+    
+    // 3. Si falla el logo remoto, intenta el favicon de Google
     if (imgFormat === "favicon" && faviconUrl) return (
       <img src={faviconUrl} alt={item.name} width={28} height={28}
         style={{ borderRadius:6, objectFit:"contain", flexShrink:0 }} />
     );
+    
+    // 4. Si todo falla, muestra un cuadro gris por defecto
     return <div style={{ width:28, height:28, borderRadius:6, background:"var(--dark4)", flexShrink:0 }} />;
   };
 
@@ -426,6 +434,8 @@ function RefItem({ item }: { item: RefItem }) {
           {item.badge}
         </span>
       </a>
+      
+      {/* ── EARNING TIP BANNER ── */}
       {!isPending && EARNING_TIPS[item.name] && (
         <div style={{ display:"flex", alignItems:"flex-start", gap:12, padding:"12px 14px", background:"linear-gradient(135deg, #0A1628 0%, #0F2040 100%)", borderBottom:"0.5px solid var(--dark4)" }}>
           <img
@@ -434,14 +444,18 @@ function RefItem({ item }: { item: RefItem }) {
             width={44} height={44}
             onError={(e) => {
               const t = e.currentTarget;
-              if (t.src.endsWith(".jpg") && logoUrl) { t.src = logoUrl; }
-              else { t.style.display = "none"; }
+              // Simplificado: si falla el .jpg, intenta el logo remoto directamente
+              if (t.src.endsWith(".jpg") && logoUrl) { 
+                t.src = logoUrl; 
+              } else { 
+                t.style.display = "none"; 
+              }
             }}
             style={{ objectFit:"contain", background:"white", borderRadius:8, padding:"4px", flexShrink:0 }}
           />
           <div style={{ flex:1 }}>
             <div style={{ fontSize:10, fontWeight:700, color:"var(--gold)", letterSpacing:"1px", marginBottom:3 }}>
-              {" CÓMO GANAR CON " + item.name.toUpperCase()}
+              {"💰 CÓMO GANAR CON " + item.name.toUpperCase()}
             </div>
             <p style={{ fontSize:12, color:"#B8D5EA", lineHeight:1.6, margin:0 }}>
               {EARNING_TIPS[item.name]}
@@ -453,6 +467,7 @@ function RefItem({ item }: { item: RefItem }) {
           </div>
         </div>
       )}
+      
       {!isPending && item.desc && (
         <div style={{ padding:"10px 14px", background:"var(--dark2)", borderBottom:"0.5px solid var(--dark4)" }}>
           <p style={{ fontSize:12, color:"var(--text-muted)", lineHeight:1.6, marginBottom:8 }}>{item.desc}</p>
@@ -466,7 +481,7 @@ function RefItem({ item }: { item: RefItem }) {
   );
 }
 
-/* ── CATEGORY CARD (CON BINANCE Y COINEX EN 2 COLUMNAS) ── */
+/* ── CATEGORY CARD ── */
 function CategoryCard({ cat, onAddLink }: { cat: Category; onAddLink: (id: string) => void }) {
   const [links] = useState<RefItem[]>(cat.links);
   return (
@@ -483,20 +498,7 @@ function CategoryCard({ cat, onAddLink }: { cat: Category; onAddLink: (id: strin
         <div className="cat-left-col" style={{ padding:"1.5rem", borderRight:"0.5px solid var(--dark4)" }}>
           <span style={{ fontSize:11, letterSpacing:"1.5px", color:"var(--gold-dark)", marginBottom:"0.6rem", display:"block" }}>{"🚀 ACCEDE · REGÍSTRATE · GANA"}</span>
           <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-            
-            {/* 👇 AQUÍ ESTÁ LA MAGIA: 2 COLUMNAS SOLO PARA EXCHANGE */}
-            {cat.id === "exchange" ? (
-              <>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:6 }}>
-                  {links.slice(0, 2).map((lnk, i) => <RefItem key={`ex-top-${i}`} item={lnk} />)}
-                </div>
-                {links.slice(2).map((lnk, i) => <RefItem key={`ex-rest-${i}`} item={lnk} />)}
-              </>
-            ) : (
-              links.map((lnk, i) => <RefItem key={i} item={lnk} />)
-            )}
-            {/* 👆 FIN DE LA MAGIA */}
-
+            {links.map((lnk, i) => <RefItem key={i} item={lnk} />)}
             <button onClick={() => onAddLink(cat.id)} style={{ display:"flex", alignItems:"center", gap:6, background:"transparent", border:"0.5px dashed var(--dark4)", borderRadius:6, padding:"8px 12px", color:"var(--text-muted)", fontSize:13, cursor:"pointer", width:"100%", fontFamily:"inherit", marginTop:2 }}>
               + Agregar plataforma
             </button>
@@ -559,7 +561,7 @@ function CursoRedes() {
         <p style={{ color:"var(--text-muted)", marginBottom:"2.5rem", fontSize:15 }}>De cero seguidores a ingresos reales. Un curso completo incluido en este sitio, sin costo.</p>
         <div style={{ background:"var(--dark2)", border:"1px solid var(--gold-dark)", borderRadius:10, overflow:"hidden" }}>
           <div style={{ background:"var(--dark3)", padding:"1.25rem 1.5rem", borderBottom:"0.5px solid var(--dark4)", display:"flex", alignItems:"center", gap:12 }}>
-            <span style={{ fontSize:22 }}>{""}</span>
+            <span style={{ fontSize:22 }}>{"📲"}</span>
             <div style={{ flex:1 }}>
               <div style={{ fontSize:16, fontWeight:600, color:"var(--gold)" }}>{"Curso: Gana dinero con tus redes sociales"}</div>
               <div style={{ fontSize:12, color:"var(--text-muted)" }}>{"8 módulos · Bilingüe · Aplica desde hoy"}</div>
