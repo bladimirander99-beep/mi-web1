@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "./components/Navbar";
 import { useState, useCallback } from "react";
+import Image from "next/image";
 
 /* ── TYPES ── */
 interface RefItem { name: string; href: string; badge: string; hot?: boolean; videoId?: string; desc?: string; }
@@ -116,11 +117,11 @@ const CATEGORIES: Category[] = [
     links: [
       { name: "ElevenLabs", href: "https://try.elevenlabs.io/up7wrcbk6uh9", badge: "10,000 créditos gratis", desc: "Clona y sintetiza voces con IA. Ofrece servicios de narración, doblaje y podcasts a clientes." },
       { name: "Jasper IA",  href: "TU_LINK_JASPER", badge: "7 días gratis", desc: "Redacción con IA para negocios. Crea blogs, anuncios y emails que venden, y ofrécelo como servicio." },
+      { name: "Dolphin Anty", href: "https://dolphin-anty.net/a/5087851/NoZVL05", badge: "3 perfiles gratis", desc: "Navegador anti-detección con IA. Gestiona múltiples cuentas de redes sociales y exchanges sin ser bloqueado." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #3", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #4", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #5", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: GANA DINERO CON IA",
     steps: [
@@ -287,51 +288,183 @@ const APP_DOMAINS: Record<string, string> = {
   "Sweat Wallet":"sweateconomy.com","Pionex":"pionex.com","Bitget":"bitget.com",
   "Pocket IA":"pocketoption.com","RoboForex":"roboforex.com","Rinfinity":"rinfinity.com",
   "Weltrade":"weltrade.com","XM":"xm.com","Deriv Trader":"deriv.com",
-  "ElevenLabs":"elevenlabs.io","Jasper IA":"jasper.ai","CapCut":"capcut.com",
+  "ElevenLabs":"elevenlabs.io","Dolphin Anty":"dolphin-anty.com","Jasper IA":"jasper.ai","CapCut":"capcut.com",
   "Canva Pro":"canva.com","InVideo IA":"invideo.io","InShot":"inshot.com",
   "Sweatcoin":"sweatco.in","An Earn App":"anearnapp.com","Faucet Crypto":"faucetcrypto.com",
   "Shappi":"shappi.io","RollerCoin":"rollercoin.com","1Win":"1win.com",
-  "Degoo":"degoo.com","Reental":"reental.co","RealT":"realt.co","Pi Network":"minepi.com","Telegram Wallet":"telegram.org","Terabox":"terabox.com","1Win Token Bot":"t.me","Terabox":"terabox.com","1Win Token Bot":"t.me",
+  "Degoo":"degoo.com","Reental":"reental.co","RealT":"realt.co","Pi Network":"minepi.com","Telegram Wallet":"telegram.org","Terabox":"terabox.com","1Win Token Bot":"t.me",
 };
+
+// Mapa de nombre de app → nombre de archivo real en public/imagenes/
+const IMAGE_FILES: Record<string, string> = {
+  "Binance":        "binance",
+  "CoinEx":         "coinex",
+  "Margex":         "margex",
+  "Bybit":          "bybit",
+  "MEXC":           "mexc",
+  "BingX":          "bingx",
+  "Uphold":         "uphold",
+  "AirTM":          "airtm",
+  "Speed Wallet":   "speed-wallet",
+  "Base":           "base-wallet",
+  "NC Wallet":      "nc-wallet",
+  "Sweat Wallet":   "sweat-wallet",
+  "Telegram Wallet":"telegram-wallet",
+  "Pionex":         "pionex",
+  "Bitget":         "bitget",
+  "Pocket IA":      "pocket-ia",
+  "RoboForex":      "roboforex",
+  "Rinfinity":      "rinfinity",
+  "Weltrade":       "weltrade",
+  "XM":             "xm",
+  "Deriv Trader":   "deriv",
+  "Pi Network":     "pi-network",
+  "Degoo":          "degoo",
+  "Reental":        "reental",
+  "Terabox":        "terabox",
+  "ElevenLabs":     "eleven-labs",
+  "Jasper IA":      "jasper-ia",
+  "Dolphin Anty":   "dolphin-anty",
+  "CapCut":         "Capcut-Logo",
+  "Canva Pro":      "canva-pro",
+  "InVideo IA":     "invideo",
+  "InShot":         "inshot",
+  "Sweatcoin":      "sweatcoin",
+  "An Earn App":    "earn",
+  "Faucet Crypto":  "faucet",
+  "Shappi":         "shappi",
+  "RollerCoin":     "rollercoin",
+  "1Win":           "1win",
+  "1Win Token Bot": "1win",
+};
+
+function getImageSlug(name: string): string {
+  return IMAGE_FILES[name] || name.toLowerCase().replace(/ /g, "-").replace(/[^a-z0-9-]/g, "");
+}
 
 function getLogoUrl(name: string) { const d = APP_DOMAINS[name]; return d ? `https://logo.clearbit.com/${d}` : ""; }
 function getFaviconUrl(name: string) { const d = APP_DOMAINS[name]; return d ? `https://www.google.com/s2/favicons?domain=${d}&sz=64` : ""; }
 
+/* ── EARNING TIPS por plataforma ── */
+const EARNING_TIPS: Record<string, string> = {
+  "Binance":        "💡 Copia las operaciones de traders top en Binance Copy Trading. Sin experiencia previa.",
+  "CoinEx":         "💡 Usa el mercado de futuros en CoinEx: opera con $10 y aplica apalancamiento x5 para maximizar ganancias.",
+  "Margex":         "💡 Activa el staking en Margex mientras tienes posiciones abiertas. Ganas intereses sin hacer nada extra.",
+  "Bybit":          "💡 Copia traders profesionales en Bybit CopyTrade. Ellos operan, tú ganas % de sus beneficios.",
+  "MEXC":           "💡 En MEXC compra altcoins nuevas antes del listado oficial. El precio puede subir 5x en horas.",
+  "BingX":          "💡 Activa el Copy Trading de BingX: selecciona un trader con +80% win rate y copia sus trades automáticamente.",
+  "Uphold":         "💡 Deposita USDT en Uphold y activa el staking. Gana hasta 6% anual sin mover un dedo.",
+  "AirTM":          "💡 Conviértete en cajero P2P en AirTM. Compra y vende dólares digitales y cobra comisión por cada transacción.",
+  "Speed Wallet":   "💡 Recibe pagos en Bitcoin Lightning al instante. Cobra servicios freelance sin comisiones bancarias.",
+  "Base":           "💡 Usa la red Base para acceder a DeFi barato. Liquidity pools con rendimientos del 10% al 40% mensual.",
+  "NC Wallet":      "💡 Invita amigos a NC Wallet y gana % de cada transacción que hagan. Sin límite de referidos.",
+  "Sweat Wallet":   "💡 Camina 10,000 pasos al día y acumula SWEAT. Cambia tus tokens por dinero real en el exchange.",
+  "Telegram Wallet":"💡 Recibe cripto directo en Telegram. Pide donaciones o pagos a tu comunidad sin salir del chat.",
+  "Pionex":         "💡 Activa el bot Grid Trading de Pionex con $50. Opera 24/7 automáticamente y genera entre 1% y 5% mensual.",
+  "Bitget":         "💡 Copia al trader #1 de Bitget CopyTrade. Con $100 puedes ganar lo mismo que un profesional.",
+  "Pocket IA":      "💡 Sigue las señales de IA de Pocket Option. La IA analiza el mercado y te dice cuándo entrar y salir.",
+  "RoboForex":      "💡 Abre cuenta PAMM en RoboForex: invierte en cuentas de traders profesionales y gana % de sus ganancias.",
+  "Rinfinity":      "💡 Activa los bots de Rinfinity con $50 mínimo. Los algoritmos operan forex 24/7 mientras tú descansas.",
+  "Weltrade":       "💡 Usa la cuenta Cent de Weltrade para practicar con dinero real desde $1. Aprende sin arriesgar.",
+  "XM":             "💡 Reclama el bono de $30 sin depósito de XM. Opera forex real sin poner dinero propio al inicio.",
+  "Deriv Trader":   "💡 Prueba las opciones binarias de Deriv con la cuenta demo. Cuando domines la estrategia, opera real.",
+  "Pi Network":     "💡 Mina Pi gratis una vez al día. Invita amigos para multiplicar tu velocidad de minería x3.",
+  "Degoo":          "💡 Invita 3 amigos a Degoo y consigue 1TB extra gratis. Ofrece almacenamiento a clientes como servicio.",
+  "Reental":        "💡 Invierte desde €100 en propiedades tokenizadas. Recibe renta mensual en cripto sin ser propietario.",
+  "RealT":          "💡 Compra fracciones de casas en USA desde $50. Recibe alquiler semanal en DAI directo a tu wallet.",
+  "Terabox":        "💡 Comparte tus archivos públicos en Terabox y gana recompensas por cada descarga de tu contenido.",
+  "ElevenLabs":     "💡 Clona tu voz en ElevenLabs y vende narración de audiolibros en ACX. Cobras por cada hora de audio.",
+  "Jasper IA":      "💡 Escribe artículos SEO con Jasper en 10 minutos. Véndelos en Fiverr a $20-$50 cada uno.",
+  "Dolphin Anty":   "💡 Crea múltiples cuentas de redes sociales con Dolphin Anty. Multiplica tus referidos x10 sin ser detectado.",
+  "CapCut":         "💡 Crea 3 videos cortos al día con CapCut. Publica en TikTok, Reels y Shorts para triplicar tu alcance.",
+  "Canva Pro":      "💡 Diseña packs de templates en Canva y véndelos en Etsy o Gumroad. Un pack puede valer $15-$50.",
+  "InVideo IA":     "💡 Escribe un prompt en InVideo y genera un video de YouTube en 5 minutos. Activa AdSense y genera ingresos pasivos.",
+  "InShot":         "💡 Edita Reels virales con InShot en el móvil. La clave: subtítulos automáticos + música trending.",
+  "Sweatcoin":      "💡 Camina 10,000 pasos diarios y acumula SWC. Canjéalos por PayPal, Amazon o cripto real.",
+  "An Earn App":    "💡 Completa las tareas diarias de An Earn App en 15 minutos. Retira por PayPal cuando llegues al mínimo.",
+  "Faucet Crypto":  "💡 Reclama cripto cada hora en Faucet Crypto. Con referidos activos puedes ganar el doble de rewards.",
+  "Shappi":         "💡 Compra con Shappi y gana cripto de cashback. Invita amigos y gana % de sus compras de por vida.",
+  "RollerCoin":     "💡 Juega los minijuegos de RollerCoin 30 min al día. Acumula poder de minería y gana BTC, ETH y DOGE reales.",
+  "1Win":           "💡 Usa la estrategia Martingala con control en 1Win. Apuesta al equipo favorito con análisis previo.",
+  "1Win Token Bot": "💡 Completa las misiones del bot diariamente. Acumula tokens y espera el listing para venderlos al mejor precio.",
+};
+
 /* ── REF ITEM ── */
 function RefItem({ item }: { item: RefItem }) {
-  const [imgError, setImgError] = useState(false);
+  const [imgFormat, setImgFormat] = useState<"jpg"|"png"|"remote"|"favicon"|"none">("jpg");
   const [bannerError, setBannerError] = useState(false);
   const logoUrl = getLogoUrl(item.name);
   const faviconUrl = getFaviconUrl(item.name);
   const isPending = item.href === "#";
+  const slug = getImageSlug(item.name);
+
+  const renderIcon = () => {
+    if (imgFormat === "jpg") return (
+      <img src={`/imagenes/${slug}.jpg`} alt={item.name} width={28} height={28}
+        onError={() => setImgFormat("jpeg")}
+        style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
+    );
+    if (imgFormat === "jpeg") return (
+      <img src={`/imagenes/${slug}.jpeg`} alt={item.name} width={28} height={28}
+        onError={() => setImgFormat("png")}
+        style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
+    );
+    if (imgFormat === "png") return (
+      <img src={`/imagenes/${slug}.png`} alt={item.name} width={28} height={28}
+        onError={() => setImgFormat("remote")}
+        style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
+    );
+    if (imgFormat === "remote" && logoUrl) return (
+      <img src={logoUrl} alt={item.name} width={28} height={28}
+        onError={() => setImgFormat("favicon")}
+        style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
+    );
+    if ((imgFormat === "favicon" || imgFormat === "remote") && faviconUrl) return (
+      <img src={faviconUrl} alt={item.name} width={28} height={28}
+        style={{ borderRadius:6, objectFit:"contain", flexShrink:0 }} />
+    );
+    return <div style={{ width:28, height:28, borderRadius:6, background:"var(--dark4)", flexShrink:0 }} />;
+  };
 
   return (
     <div style={{ border:`0.5px solid ${item.hot ? "var(--gold-dark)" : "var(--dark4)"}`, borderRadius:8, overflow:"hidden", opacity: isPending ? 0.5 : 1 }}>
       <a href={item.href} target="_blank" rel="noopener noreferrer" onClick={isPending ? e => e.preventDefault() : undefined}
         style={{ display:"flex", alignItems:"center", gap:10, padding:"10px 12px", textDecoration:"none", background:"var(--dark3)", color:"var(--text)", fontSize:13, borderBottom:"0.5px solid var(--dark4)" }}>
-        {logoUrl && !imgError ? (
-          <img src={logoUrl} alt={item.name} width={28} height={28} onError={() => setImgError(true)} style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
-        ) : faviconUrl ? (
-          <img src={faviconUrl} alt={item.name} width={28} height={28} style={{ borderRadius:6, objectFit:"contain", flexShrink:0 }} />
-        ) : (
-          <div style={{ width:28, height:28, borderRadius:6, background:"var(--dark4)", flexShrink:0 }} />
-        )}
+        {renderIcon()}
         <span style={{ flex:1, fontWeight:500 }}>{item.name}</span>
         <span style={{ fontSize:11, padding:"2px 8px", borderRadius:10, whiteSpace:"nowrap", background: item.hot ? "rgba(0,198,255,0.15)" : "var(--dark4)", color: item.hot ? "var(--gold-light)" : "var(--gold)", border:`0.5px solid ${item.hot ? "var(--gold)" : "var(--gold-dark)"}` }}>
           {item.badge}
         </span>
       </a>
-      {!isPending && logoUrl && !bannerError && (
-        <a href={item.href} target="_blank" rel="noopener noreferrer" style={{ display:"block", lineHeight:0 }}>
-          <div style={{ display:"flex", alignItems:"center", gap:16, padding:"14px 16px", background:"linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%)" }}>
-            <img src={logoUrl} alt={item.name} height={48} onError={() => setBannerError(true)} style={{ objectFit:"contain", maxWidth:120, background:"white", borderRadius:10, padding:"6px 10px" }} />
-            <div>
-              <div style={{ fontSize:13, fontWeight:600, color:"var(--text)" }}>{item.name}</div>
-              <div style={{ fontSize:11, color:"var(--gold)", marginTop:2 }}>{item.badge}</div>
-              <div style={{ fontSize:11, color:"var(--text-muted)", marginTop:4 }}>{"Toca para registrarte y reclamar tu bono →"}</div>
+      {/* ── EARNING TIP BANNER ── */}
+      {!isPending && EARNING_TIPS[item.name] && (
+        <div style={{ display:"flex", alignItems:"flex-start", gap:12, padding:"12px 14px", background:"linear-gradient(135deg, #0A1628 0%, #0F2040 100%)", borderBottom:"0.5px solid var(--dark4)" }}>
+          <img
+            src={`/imagenes/${slug}.jpg`}
+            alt={item.name}
+            width={44} height={44}
+            onError={(e) => {
+              const t = e.currentTarget;
+              if (t.src.endsWith(".jpg")) { t.src = `/imagenes/${slug}.jpeg`; }
+              else if (t.src.endsWith(".jpeg")) { t.src = `/imagenes/${slug}.png`; }
+              else if (t.src.endsWith(".png") && logoUrl) { t.src = logoUrl; }
+              else { t.style.display = "none"; }
+            }}
+            style={{ objectFit:"contain", background:"white", borderRadius:8, padding:"4px", flexShrink:0 }}
+          />
+          <div style={{ flex:1 }}>
+            <div style={{ fontSize:10, fontWeight:700, color:"var(--gold)", letterSpacing:"1px", marginBottom:3 }}>
+              {"💰 CÓMO GANAR CON " + item.name.toUpperCase()}
             </div>
+            <p style={{ fontSize:12, color:"#B8D5EA", lineHeight:1.6, margin:0 }}>
+              {EARNING_TIPS[item.name]}
+            </p>
+            <a href={item.href} target="_blank" rel="noopener noreferrer"
+              style={{ display:"inline-flex", alignItems:"center", gap:4, marginTop:6, fontSize:11, color:"var(--gold)", textDecoration:"none", background:"rgba(0,198,255,0.1)", border:"0.5px solid var(--gold-dark)", borderRadius:20, padding:"3px 10px" }}>
+              {"🚀 Registrarte ahora →"}
+            </a>
           </div>
-        </a>
+        </div>
       )}
       {!isPending && item.desc && (
         <div style={{ padding:"10px 14px", background:"var(--dark2)", borderBottom:"0.5px solid var(--dark4)" }}>
