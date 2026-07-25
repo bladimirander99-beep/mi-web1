@@ -391,7 +391,7 @@ const EARNING_TIPS: Record<string, string> = {
 
 /* ── REF ITEM ── */
 function RefItem({ item }: { item: RefItem }) {
-  const [imgFormat, setImgFormat] = useState<"jpg"|"png"|"remote"|"favicon"|"none">("jpg");
+  const [imgFormat, setImgFormat] = useState<"jpg"|"jpeg"|"png"|"remote"|"favicon"|"none">("jpg");
   const [bannerError, setBannerError] = useState(false);
   const logoUrl = getLogoUrl(item.name);
   const faviconUrl = getFaviconUrl(item.name);
@@ -401,7 +401,7 @@ function RefItem({ item }: { item: RefItem }) {
   const renderIcon = () => {
     if (imgFormat === "jpg") return (
       <img src={`/imagenes/${slug}.jpg`} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("jpeg")}
+        onError={() => setImgFormat("png")}
         style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
     );
     if (imgFormat === "jpeg") return (
