@@ -3,16 +3,6 @@ import Navbar from "./components/Navbar";
 import { useState, useCallback } from "react";
 import Image from "next/image";
 
-/* ── TYPES ── */
-interface RefItem { name: string; href: string; badge: string; hot?: boolean; videoId?: string; desc?: string; }
-interface Category {
-  id: string; icon: string; title: string; subtitle: string; hot?: boolean;
-  links: RefItem[];
-  manualLabel: string;
-  steps: { title: string; desc: string }[];
-  tip: string;
-}
-
 /* ── COMPONENTE DE ANUNCIO ADSTERRA ── */
 function AdsterraBanner({ adCode }: { adCode: string }) {
   return (
@@ -31,6 +21,16 @@ function AdsterraBanner({ adCode }: { adCode: string }) {
       </p>
     </div>
   );
+}
+
+/* ── TYPES ── */
+interface RefItem { name: string; href: string; badge: string; hot?: boolean; videoId?: string; desc?: string; }
+interface Category {
+  id: string; icon: string; title: string; subtitle: string; hot?: boolean;
+  links: RefItem[];
+  manualLabel: string;
+  steps: { title: string; desc: string }[];
+  tip: string;
 }
 
 /* ── DATA ── */
@@ -502,7 +502,6 @@ function CategoryCard({ cat, onAddLink }: { cat: Category; onAddLink: (id: strin
         <div className="cat-left-col" style={{ padding:"1.5rem", borderRight:"0.5px solid var(--dark4)" }}>
           <span style={{ fontSize:11, letterSpacing:"1.5px", color:"var(--gold-dark)", marginBottom:"0.6rem", display:"block" }}>{"🚀 ACCEDE · REGÍSTRATE · GANA"}</span>
           <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
-            {/* Lista normal en una sola columna para todos los elementos */}
             {links.map((lnk, i) => <RefItem key={i} item={lnk} />)}
             <button onClick={() => onAddLink(cat.id)} style={{ display:"flex", alignItems:"center", gap:6, background:"transparent", border:"0.5px dashed var(--dark4)", borderRadius:6, padding:"8px 12px", color:"var(--text-muted)", fontSize:13, cursor:"pointer", width:"100%", fontFamily:"inherit", marginTop:2 }}>
               + Agregar plataforma
@@ -697,6 +696,19 @@ export default function Page() {
           .plat-grid { grid-template-columns:1fr !important; }
         }
       `}</style>
+
+      {/* ── GOOGLE ANALYTICS ── */}
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-X3XY5DNXPV" />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-X3XY5DNXPV');
+          `
+        }}
+      />
 
       <Navbar />
 
