@@ -13,6 +13,26 @@ interface Category {
   tip: string;
 }
 
+/* ── COMPONENTE DE ANUNCIO ADSTERRA ── */
+function AdsterraBanner({ adCode }: { adCode: string }) {
+  return (
+    <div style={{ 
+      margin: "2rem auto", 
+      textAlign: "center",
+      padding: "1rem",
+      background: "var(--dark3)",
+      borderRadius: 8,
+      border: "0.5px solid var(--dark4)",
+      maxWidth: 1060
+    }}>
+      <div dangerouslySetInnerHTML={{ __html: adCode }} />
+      <p style={{ fontSize: 10, color: "var(--text-muted)", marginTop: 8, marginBottom: 0 }}>
+        Publicidad
+      </p>
+    </div>
+  );
+}
+
 /* ── DATA ── */
 const CATEGORIES: Category[] = [
   {
@@ -295,7 +315,6 @@ const APP_DOMAINS: Record<string, string> = {
   "Degoo":"degoo.com","Reental":"reental.co","RealT":"realt.co","Pi Network":"minepi.com","Telegram Wallet":"telegram.org","Terabox":"terabox.com","1Win Token Bot":"t.me",
 };
 
-// Mapa de nombre de app → nombre de archivo real en public/imagenes/
 const IMAGE_FILES: Record<string, string> = {
   "Binance":        "binance",
   "CoinEx":         "coinex",
@@ -391,7 +410,6 @@ const EARNING_TIPS: Record<string, string> = {
 
 /* ── REF ITEM (OPTIMIZADO: SOLO .JPG) ── */
 function RefItem({ item }: { item: RefItem }) {
-  // Simplificado: Solo busca .jpg, luego remote, luego favicon
   const [imgFormat, setImgFormat] = useState<"jpg" | "remote" | "favicon" | "none">("jpg");
   const [bannerError, setBannerError] = useState(false);
   const logoUrl = getLogoUrl(item.name);
@@ -400,27 +418,20 @@ function RefItem({ item }: { item: RefItem }) {
   const slug = getImageSlug(item.name);
 
   const renderIcon = () => {
-    // 1. Intenta cargar el .jpg local
     if (imgFormat === "jpg") return (
       <img src={`/imagenes/${slug}.jpg`} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("remote")} // Si falla, salta directo al logo remoto
+        onError={() => setImgFormat("remote")}
         style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
     );
-    
-    // 2. Si falla el .jpg, intenta el logo remoto (Clearbit)
     if (imgFormat === "remote" && logoUrl) return (
       <img src={logoUrl} alt={item.name} width={28} height={28}
-        onError={() => setImgFormat("favicon")} // Si falla, intenta el favicon
+        onError={() => setImgFormat("favicon")}
         style={{ borderRadius:6, objectFit:"contain", background:"white", padding:2, flexShrink:0 }} />
     );
-    
-    // 3. Si falla el logo remoto, intenta el favicon de Google
     if (imgFormat === "favicon" && faviconUrl) return (
       <img src={faviconUrl} alt={item.name} width={28} height={28}
         style={{ borderRadius:6, objectFit:"contain", flexShrink:0 }} />
     );
-    
-    // 4. Si todo falla, muestra un cuadro gris por defecto
     return <div style={{ width:28, height:28, borderRadius:6, background:"var(--dark4)", flexShrink:0 }} />;
   };
 
@@ -434,8 +445,6 @@ function RefItem({ item }: { item: RefItem }) {
           {item.badge}
         </span>
       </a>
-      
-      {/* ── EARNING TIP BANNER ── */}
       {!isPending && EARNING_TIPS[item.name] && (
         <div style={{ display:"flex", alignItems:"flex-start", gap:12, padding:"12px 14px", background:"linear-gradient(135deg, #0A1628 0%, #0F2040 100%)", borderBottom:"0.5px solid var(--dark4)" }}>
           <img
@@ -444,12 +453,8 @@ function RefItem({ item }: { item: RefItem }) {
             width={44} height={44}
             onError={(e) => {
               const t = e.currentTarget;
-              // Simplificado: si falla el .jpg, intenta el logo remoto directamente
-              if (t.src.endsWith(".jpg") && logoUrl) { 
-                t.src = logoUrl; 
-              } else { 
-                t.style.display = "none"; 
-              }
+              if (t.src.endsWith(".jpg") && logoUrl) { t.src = logoUrl; }
+              else { t.style.display = "none"; }
             }}
             style={{ objectFit:"contain", background:"white", borderRadius:8, padding:"4px", flexShrink:0 }}
           />
@@ -467,7 +472,6 @@ function RefItem({ item }: { item: RefItem }) {
           </div>
         </div>
       )}
-      
       {!isPending && item.desc && (
         <div style={{ padding:"10px 14px", background:"var(--dark2)", borderBottom:"0.5px solid var(--dark4)" }}>
           <p style={{ fontSize:12, color:"var(--text-muted)", lineHeight:1.6, marginBottom:8 }}>{item.desc}</p>
@@ -481,7 +485,7 @@ function RefItem({ item }: { item: RefItem }) {
   );
 }
 
-/* ── CATEGORY CARD ── */
+/* ── CATEGORY CARD (LISTA NORMAL, SIN 2 COLUMNAS) ── */
 function CategoryCard({ cat, onAddLink }: { cat: Category; onAddLink: (id: string) => void }) {
   const [links] = useState<RefItem[]>(cat.links);
   return (
@@ -498,6 +502,7 @@ function CategoryCard({ cat, onAddLink }: { cat: Category; onAddLink: (id: strin
         <div className="cat-left-col" style={{ padding:"1.5rem", borderRight:"0.5px solid var(--dark4)" }}>
           <span style={{ fontSize:11, letterSpacing:"1.5px", color:"var(--gold-dark)", marginBottom:"0.6rem", display:"block" }}>{"🚀 ACCEDE · REGÍSTRATE · GANA"}</span>
           <div style={{ display:"flex", flexDirection:"column", gap:6 }}>
+            {/* Lista normal en una sola columna para todos los elementos */}
             {links.map((lnk, i) => <RefItem key={i} item={lnk} />)}
             <button onClick={() => onAddLink(cat.id)} style={{ display:"flex", alignItems:"center", gap:6, background:"transparent", border:"0.5px dashed var(--dark4)", borderRadius:6, padding:"8px 12px", color:"var(--text-muted)", fontSize:13, cursor:"pointer", width:"100%", fontFamily:"inherit", marginTop:2 }}>
               + Agregar plataforma
@@ -764,6 +769,12 @@ export default function Page() {
 
       {/* DONACIONES */}
       <SeccionDonaciones />
+
+      {/* ── ANUNCIO ADSTERRA ── */}
+      <AdsterraBanner adCode={`
+        <script async="async" data-cfasync="false" src="https://bibleearthquake.com/fe9f35b08c7eabbb25d9376616ddb51c/invoke.js"></script>
+        <div id="container-fe9f35b08c7eabbb25d9376616ddb51c"></div>
+      `} />
 
       {/* FOOTER */}
       <footer style={{ background:"var(--dark2)", borderTop:"0.5px solid var(--dark4)", padding:"2rem", textAlign:"center", color:"var(--text-muted)", fontSize:13 }}>
