@@ -2,6 +2,7 @@ import { Hero } from "./components/Hero";
 import { CategoriesSection } from "./components/CategoriesSection";
 import { CursoRedes } from "./components/CursoRedes";
 import { EarningsSection } from "./components/EarningsSection";
+import { BlogTeaser } from "./components/BlogTeaser";
 import { Donaciones } from "./components/Donaciones";
 import { AdsterraBanner } from "./components/AdsterraBanner";
 import { Footer } from "./components/Footer";
@@ -14,6 +15,7 @@ export default function Page() {
       <CategoriesSection />
       <CursoRedes />
       <EarningsSection />
+      <BlogTeaser />
       <Donaciones />
       <AdsterraBanner adCode={ADSTERRA_BANNER} />
       <Footer />
