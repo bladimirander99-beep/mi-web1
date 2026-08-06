@@ -32,7 +32,7 @@ export function Hero() {
 
       {/* ── STATS BAR ── */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(130px,1fr))", gap: 1, background: "var(--dark4)" }}>
-        {[["8", "Categorías"], ["30+", "Plataformas"], ["$0", "Para empezar"], ["1", "Curso incluido"], ["24/7", "Ingresos pasivos"]].map(([n, l]) => (
+        {[["8", "Categorías"], ["30+", "Plataformas"], ["$0", "Para empezar"], ["1", "Guía incluida"], ["24/7", "Ingresos pasivos"]].map(([n, l]) => (
           <div key={l} style={{ background: "var(--dark2)", padding: "1.5rem", textAlign: "center" }}>
             <div style={{ fontSize: 28, fontWeight: 700, color: "var(--gold)" }}>{n}</div>
             <div style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 4 }}>{l}</div>
