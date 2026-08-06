@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import Navbar from "@/app/components/Navbar";
+import { DonationFab } from "@/app/components/DonationFab";
 import { GA_ID, SITE } from "@/lib/constants";
 import "./globals.css";
 
@@ -60,6 +61,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main id="main-content">{children}</main>
 
+        {/* Botón flotante de donación (siempre visible) */}
+        <DonationFab />
+
+        {/* GA4 con next/script → NO bloquea el renderizado (mejor LCP) */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
