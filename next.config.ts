@@ -1,14 +1,19 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "logo.clearbit.com" },
-      { protocol: "https", hostname: "www.google.com" },
-    ],
-    unoptimized: true,
+  async headers() {
+    return [
+      {
+        source: "/imagenes/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+    ];
   },
 };
 
 export default nextConfig;
-
