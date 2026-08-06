@@ -5,18 +5,9 @@ import { SITE } from "@/lib/constants";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    {
-      url: SITE.url,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1,
-    },
-    {
-      url: `${SITE.url}/blog`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
+    { url: SITE.url, lastModified: new Date(), changeFrequency: "daily", priority: 1 },
+    { url: `${SITE.url}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE.url}/top`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },
     ...POSTS.map((p) => ({
       url: `${SITE.url}/blog/${p.slug}`,
       lastModified: new Date(p.date),

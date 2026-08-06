@@ -9,6 +9,7 @@ export function Footer() {
 
       <nav aria-label="Enlaces del pie" style={{ display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap", margin: "1rem 0" }}>
         <Link href="/" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Inicio</Link>
+        <Link href="/top" style={{ color: "var(--gold)", textDecoration: "none", fontWeight: 600 }}>🏆 Top 5 del mes</Link>
         <Link href="/#exchange" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Plataformas</Link>
         <Link href="/blog" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Blog</Link>
         <Link href="/#redes" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Guía gratis</Link>

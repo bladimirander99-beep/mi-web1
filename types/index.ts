@@ -43,3 +43,14 @@ export interface Post {
   relatedCategoryId: string;
   sections: PostSection[];
 }
+
+/* ── TOP PLATAFORMAS ── */
+export interface TopPlatform {
+  name: string;
+  score: number;
+  bonus: string;
+  bestFor: string;
+  why: string;
+  pros: string[];
+  cons: string[];
+}
