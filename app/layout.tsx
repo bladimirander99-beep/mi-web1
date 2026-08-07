@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import Navbar from "@/app/components/Navbar";
 import { DonationFab } from "@/app/components/DonationFab";
 import { GA_ID, SITE } from "@/lib/constants";
@@ -56,27 +55,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+
+        {/* GA4 en <head> con async: rápido Y verificable por Search Console */}
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${GA_ID}', { anonymize_ip: true });
+            `,
+          }}
+        />
       </head>
       <body>
         <Navbar />
         <main id="main-content">{children}</main>
-
-        {/* Botón flotante de donación (siempre visible) */}
         <DonationFab />
-
-        {/* GA4 con next/script → NO bloquea el renderizado (mejor LCP) */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="ga4-config" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_ID}', { anonymize_ip: true });
-          `}
-        </Script>
       </body>
     </html>
   );
