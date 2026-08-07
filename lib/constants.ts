@@ -2,7 +2,7 @@ export const GA_ID = "G-X3XY5DNXPV";
 
 export const SITE = {
   name: "Dinero Abundante",
-  url: "https://TU-DOMINIO.com",
+  url: "https://mi-web-ivory-six.vercel.app",
   description:
     "Aprende criptomonedas, trading, inteligencia artificial, billeteras digitales y creación de contenido. Más de 30 plataformas verificadas para generar ingresos desde Internet.",
   author: "Bladimir Santacruz",
