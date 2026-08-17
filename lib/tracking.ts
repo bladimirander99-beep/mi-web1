@@ -1,21 +1,34 @@
 declare global {
   interface Window {
     dataLayer: unknown[];
-    gtag?: (...args: unknown[]) => void;
+    gtag: (...args: unknown[]) => void;
   }
 }
 
-export function trackEvent(action: string, category: string, label?: string) {
-  if (typeof window !== "undefined" && typeof window.gtag === "function") {
-    window.gtag("event", action, { event_category: category, event_label: label });
-  }
+export type TrackParams = {
+  event_category?: string;
+  event_label?: string;
+  value?: number;
+} & Record<string, string | number | undefined>;
+
+export function trackEvent(name: string, params?: TrackParams): void {
+  if (typeof window === "undefined") return;
+  if (typeof window.gtag !== "function") return;
+  window.gtag("event", name, params);
 }
 
-export const trackReferralClick = (platform: string, categoryId: string) =>
-  trackEvent("referral_click", categoryId, platform);
+export function trackReferralClick(platform: string, categoryId: string): void {
+  trackEvent("referral_click", { event_category: categoryId, event_label: platform });
+}
 
-export const trackDonationCopy = (method: string) =>
-  trackEvent("donation_copy", "donaciones", method);
+export function trackSearch(term: string): void {
+  trackEvent("search", { event_category: "buscador", event_label: term });
+}
 
-export const trackSearch = (query: string, results: number) =>
-  trackEvent("search", "buscador", `${query} (${results} resultados)`);
+export function trackDonationCopy(method: string): void {
+  trackEvent("donation_copy", { event_category: "donaciones", event_label: method });
+}
+
+export function trackDonationClick(method: string): void {
+  trackEvent("donation_click", { event_category: "donaciones", event_label: method });
+}
