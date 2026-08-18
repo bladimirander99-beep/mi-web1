@@ -10,7 +10,7 @@ const AIRTM_LINK = "https://airtm.me/bladimir2025";
 const PRESETS = [1, 2, 3, 5, 10, 20];
 const COINS = ["USDT", "USDC", "BNB", "BTC", "ETH"];
 
-type Method = "binance" | "usdt" | "airtm";
+type Method = "binance" | "usdt" | "airtm" | "peigo" | "deuna";
 
 export function DonationFab() {
   const [open, setOpen] = useState(false);
@@ -66,14 +66,14 @@ export function DonationFab() {
   });
 
   const tab = (active: boolean): CSSProperties => ({
-    flex: 1,
+    flex: "1 1 30%",
     padding: "10px 6px",
     borderRadius: 10,
     border: "none",
     background: active ? "var(--gold)" : "var(--dark)",
     color: active ? "#12212e" : "var(--text)",
     fontWeight: 700,
-    fontSize: 13,
+    fontSize: 12,
     cursor: "pointer",
   });
 
@@ -143,16 +143,18 @@ export function DonationFab() {
 
             {/* MÉTODO */}
             <p style={{ margin: "0 0 8px", fontSize: 13, fontWeight: 700 }}>Elige tu método:</p>
-            <div style={{ display: "flex", gap: 8, marginBottom: 16 }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 16 }}>
               <button onClick={() => setMethod("binance")} style={tab(method === "binance")}>🟡 Binance</button>
               <button onClick={() => setMethod("usdt")} style={tab(method === "usdt")}>📱 USDT</button>
               <button onClick={() => setMethod("airtm")} style={tab(method === "airtm")}>🌐 AirTM</button>
+              <button onClick={() => setMethod("peigo")} style={tab(method === "peigo")}>📲 Peigo</button>
+              <button onClick={() => setMethod("deuna")} style={tab(method === "deuna")}>💸 De Una</button>
             </div>
 
             {method === "binance" && (
               <div style={{ background: "var(--dark)", borderRadius: 12, padding: 14, textAlign: "center" }}>
                 <img
-                  src="/imagenes/binance-pay-qr.jpg"
+                  src="/imagenes/binace-pay-qr.jpg"
                   alt="QR de Binance Pay: escanea con la app de Binance para enviar"
                   width={250}
                   style={{ height: "auto", borderRadius: 12, background: "#fff", padding: 3, margin: "0 auto 10px", display: "block" }}
@@ -221,6 +223,36 @@ export function DonationFab() {
                 <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)" }}>
                   Usuario: <strong style={{ color: "var(--text)" }}>bladimir2025</strong> · El donante no necesita cuenta AirTM.
                 </p>
+              </div>
+            )}
+
+            {method === "peigo" && (
+              <div style={{ background: "var(--dark)", borderRadius: 12, padding: 14, textAlign: "center" }}>
+                <img
+                  src="/imagenes/peigo-qr.jpg"
+                  alt="QR de Peigo: escanea con la app Peigo para enviar"
+                  width={220}
+                  style={{ height: "auto", borderRadius: 12, background: "#fff", padding: 3, margin: "0 auto 10px", display: "block" }}
+                />
+                <p style={{ margin: "0 0 4px", fontSize: 13 }}>
+                  Envía <strong style={{ color: "var(--gold)" }}>${finalAmount}</strong> escaneando el QR con la app <strong>Peigo</strong>
+                </p>
+                <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)" }}>App ecuatoriana · abre Peigo → Escanear QR</p>
+              </div>
+            )}
+
+            {method === "deuna" && (
+              <div style={{ background: "var(--dark)", borderRadius: 12, padding: 14, textAlign: "center" }}>
+                <img
+                  src="/imagenes/deuna-qr.jpg"
+                  alt="QR de De Una App: escanea con la app De Una para enviar"
+                  width={220}
+                  style={{ height: "auto", borderRadius: 12, background: "#fff", padding: 3, margin: "0 auto 10px", display: "block" }}
+                />
+                <p style={{ margin: "0 0 4px", fontSize: 13 }}>
+                  Envía <strong style={{ color: "var(--gold)" }}>${finalAmount}</strong> escaneando el QR con la app <strong>De Una</strong>
+                </p>
+                <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)" }}>App ecuatoriana · abre De Una → Escanear QR</p>
               </div>
             )}
 
