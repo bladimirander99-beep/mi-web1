@@ -5,11 +5,15 @@ export const APP_DOMAINS: Record<string, string> = {
   "Sweat Wallet": "sweateconomy.com", "Pionex": "pionex.com", "Bitget": "bitget.com",
   "Pocket IA": "pocketoption.com", "RoboForex": "roboforex.com", "Rinfinity": "rinfinity.com",
   "Weltrade": "weltrade.com", "XM": "xm.com", "Deriv Trader": "deriv.com",
-  "ElevenLabs": "elevenlabs.io", "Dolphin Anty": "dolphin-anty.com", "Jasper IA": "jasper.ai", "CapCut": "capcut.com",
-  "Canva Pro": "canva.com", "InVideo IA": "invideo.io", "InShot": "inshot.com",
+  "ElevenLabs": "elevenlabs.io", "Dolphin Anty": "dolphin-anty.com", "Jasper IA": "jasper.ai",
+  "Suno AI": "suno.com",
+  "CapCut": "capcut.com", "Canva Pro": "canva.com", "InVideo IA": "invideo.io", "InShot": "inshot.com",
+  "TikTok Ads Affiliate": "ads.tiktok.com",
   "Sweatcoin": "sweatco.in", "An Earn App": "anearnapp.com", "Faucet Crypto": "faucetcrypto.com",
   "Shappi": "shappi.io", "RollerCoin": "rollercoin.com", "1Win": "1win.com",
-  "Degoo": "degoo.com", "Reental": "reental.co", "RealT": "realt.co", "Pi Network": "minepi.com", "Telegram Wallet": "telegram.org", "Terabox": "terabox.com", "1Win Token Bot": "t.me",
+  "Degoo": "degoo.com", "Reental": "reental.co", "RealT": "realt.co", "Pi Network": "minepi.com",
+  "Telegram Wallet": "telegram.org", "Terabox": "terabox.com", "1Win Token Bot": "t.me",
+  "Takenos": "takenos.com",
 };
 
 export const IMAGE_FILES: Record<string, string> = {
@@ -20,10 +24,13 @@ export const IMAGE_FILES: Record<string, string> = {
   "Bitget": "bitget", "Pocket IA": "pocket-ia", "RoboForex": "roboforex", "Rinfinity": "rinfinity",
   "Weltrade": "weltrade", "XM": "xm", "Deriv Trader": "deriv", "Pi Network": "pi-network",
   "Degoo": "degoo", "Reental": "reental", "Terabox": "terabox", "ElevenLabs": "eleven-labs",
-  "Jasper IA": "jasper-ia", "Dolphin Anty": "dolphin-anty", "CapCut": "Capcut-Logo",
-  "Canva Pro": "canva-pro", "InVideo IA": "invideo", "InShot": "inshot", "Sweatcoin": "sweatcoin",
-  "An Earn App": "earn", "Faucet Crypto": "faucet", "Shappi": "shappi", "RollerCoin": "rollercoin",
-  "1Win": "1win", "1Win Token Bot": "1win",
+  "Jasper IA": "jasper-ia", "Dolphin Anty": "dolphin-anty",
+  "Suno AI": "suno",
+  "CapCut": "Capcut-Logo", "Canva Pro": "canva-pro", "InVideo IA": "invideo", "InShot": "inshot",
+  "TikTok Ads Affiliate": "tiktok-ads",
+  "Sweatcoin": "sweatcoin", "An Earn App": "earn", "Faucet Crypto": "faucet", "Shappi": "shappi",
+  "RollerCoin": "rollercoin", "1Win": "1win", "1Win Token Bot": "1win",
+  "Takenos": "takenos",
 };
 
 export const EARNING_TIPS: Record<string, string> = {
@@ -56,10 +63,12 @@ export const EARNING_TIPS: Record<string, string> = {
   "ElevenLabs": "💡 Clona tu voz en ElevenLabs y vende narración de audiolibros en ACX. Cobras por cada hora de audio.",
   "Jasper IA": "💡 Escribe artículos SEO con Jasper en 10 minutos. Véndelos en Fiverr a $20-$50 cada uno.",
   "Dolphin Anty": "💡 Crea múltiples cuentas de redes sociales con Dolphin Anty. Multiplica tus referidos x10 sin ser detectado.",
+  "Suno AI": "💡 Crea 3 canciones al día en Suno con IA y súbelas a Spotify con DistroKid. Royalties pasivos de por vida.",
   "CapCut": "💡 Crea 3 videos cortos al día con CapCut. Publica en TikTok, Reels y Shorts para triplicar tu alcance.",
   "Canva Pro": "💡 Diseña packs de templates en Canva y véndelos en Etsy o Gumroad. Un pack puede valer $15-$50.",
   "InVideo IA": "💡 Escribe un prompt en InVideo y genera un video de YouTube en 5 minutos. Activa AdSense y genera ingresos pasivos.",
   "InShot": "💡 Edita Reels virales con InShot en el móvil. La clave: subtítulos automáticos + música trending.",
+  "TikTok Ads Affiliate": "💡 Ofrece a negocios locales configurarles su primera campaña de TikTok Ads gratis. Refiérelos con tu link y ganas 20% de su inversión.",
   "Sweatcoin": "💡 Camina 10,000 pasos diarios y acumula SWC. Canjéalos por PayPal, Amazon o cripto real.",
   "An Earn App": "💡 Completa las tareas diarias de An Earn App en 15 minutos. Retira por PayPal cuando llegues al mínimo.",
   "Faucet Crypto": "💡 Reclama cripto cada hora en Faucet Crypto. Con referidos activos puedes ganar el doble de rewards.",
@@ -67,4 +76,5 @@ export const EARNING_TIPS: Record<string, string> = {
   "RollerCoin": "💡 Juega los minijuegos de RollerCoin 30 min al día. Acumula poder de minería y gana BTC, ETH y DOGE reales.",
   "1Win": "💡 Usa la estrategia Martingala con control en 1Win. Apuesta al equipo favorito con análisis previo.",
   "1Win Token Bot": "💡 Completa las misiones del bot diariamente. Acumula tokens y espera el listing para venderlos al mejor precio.",
+  "Takenos": "💡 Cobra pagos internacionales con Takenos: tarjeta Visa virtual gratis + retiros a tu cuenta local en dólares.",
 };
