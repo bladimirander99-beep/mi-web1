@@ -154,7 +154,7 @@ export function DonationFab() {
             {method === "binance" && (
               <div style={{ background: "var(--dark)", borderRadius: 12, padding: 14, textAlign: "center" }}>
                 <img
-                  src="/imagenes/binace-pay-qr.jpg"
+                  src="/imagenes/binance-pay-qr.jpg"
                   alt="QR de Binance Pay: escanea con la app de Binance para enviar"
                   width={250}
                   style={{ height: "auto", borderRadius: 12, background: "#fff", padding: 3, margin: "0 auto 10px", display: "block" }}
