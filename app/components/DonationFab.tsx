@@ -154,9 +154,8 @@ export function DonationFab() {
                 <img
                   src="/imagenes/binance-pay-qr.jpg"
                   alt="QR de Binance Pay: escanea con la app de Binance para enviar"
-                  width={180}
-                  height={180}
-                  style={{ borderRadius: 12, background: "#fff", padding: 8, margin: "0 auto 10px", display: "block" }}
+                  width={250}
+                  style={{ height: "auto", borderRadius: 12, background: "#fff", padding: 3, margin: "0 auto 10px", display: "block" }}
                 />
                 <p style={{ margin: "0 0 8px", fontSize: 12, color: "var(--text-muted)" }}>
                   Escanea con la app de Binance, o envía manual al alias <strong style={{ color: "var(--text)" }}>{BINANCE_ALIAS}</strong>
