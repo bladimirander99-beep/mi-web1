@@ -1,5 +1,5 @@
 "use client";
-import { MODULOS, PLATAFORMAS, PLAN_90 } from "@/data/curso";
+import { MODULOS, PLATAFORMAS, PLAN_90, PLAT_TIPS } from "@/data/curso";
 import { trackEvent } from "@/lib/tracking";
 
 const videoLink = (name: string) =>
@@ -75,24 +75,27 @@ export function CursoRedes() {
           </div>
         </div>
 
-        {/* NUEVA SECCIÓN: Monetiza con... + video */}
+        {/* PLATAFORMAS: nombre + ganancia + instrucción + video debajo */}
         <div style={{ marginTop: "2.5rem" }}>
           <span style={{ fontSize: 11, letterSpacing: "1.5px", color: "var(--gold-dark)", marginBottom: "0.75rem", display: "block" }}>
             PLATAFORMAS Y SU POTENCIAL — ELIGE LA TUYA Y MIRA EL VIDEO
           </span>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))", gap: 10 }}>
             {PLATAFORMAS.map((p, i) => (
-              <div key={i} style={{ background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 10, padding: "14px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
-                <div style={{ minWidth: 150 }}>
+              <div key={i} style={{ background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 10, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
+                <div>
                   <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)", marginBottom: 2 }}>Monetiza con {p.name}</div>
                   <div style={{ fontSize: 12, color: "var(--green)" }}>{p.earn}</div>
                 </div>
+                <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)", lineHeight: 1.55 }}>
+                  💡 {PLAT_TIPS[p.name]}
+                </p>
                 <a
                   href={videoLink(p.name)}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent("video_monetizar", { event_category: "curso", event_label: p.name })}
-                  style={{ flex: "1 1 200px", textAlign: "center", fontSize: 12, fontWeight: 600, color: "var(--gold)", background: "rgba(247,196,73,0.08)", border: "0.5px solid var(--gold-dark)", borderRadius: 8, padding: "9px 12px", textDecoration: "none" }}
+                  style={{ textAlign: "center", fontSize: 12, fontWeight: 600, color: "var(--gold)", background: "rgba(247,196,73,0.08)", border: "0.5px solid var(--gold-dark)", borderRadius: 8, padding: "9px 12px", textDecoration: "none" }}
                 >
                   🎬 Aprende a monetizar — mira el video
                 </a>
