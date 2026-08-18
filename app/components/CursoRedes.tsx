@@ -1,4 +1,9 @@
+"use client";
 import { MODULOS, PLATAFORMAS, PLAN_90 } from "@/data/curso";
+import { trackEvent } from "@/lib/tracking";
+
+const videoLink = (name: string) =>
+  `https://www.youtube.com/results?search_query=${encodeURIComponent("cómo monetizar " + name)}`;
 
 export function CursoRedes() {
   return (
@@ -45,20 +50,8 @@ export function CursoRedes() {
               ))}
             </div>
 
-            {/* Columna derecha: plataformas + plan 90 */}
+            {/* Columna derecha: plan 90 */}
             <div style={{ padding: "1.5rem" }}>
-              <span style={{ fontSize: 11, letterSpacing: "1.5px", color: "var(--gold-dark)", marginBottom: "0.75rem", display: "block" }}>
-                PLATAFORMAS Y SU POTENCIAL
-              </span>
-              <div className="plat-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: "1rem" }}>
-                {PLATAFORMAS.map((p, i) => (
-                  <div key={i} style={{ background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 8, padding: "10px 12px" }}>
-                    <div style={{ fontSize: 13, fontWeight: 500, color: "var(--text)", marginBottom: 2 }}>{p.name}</div>
-                    <div style={{ fontSize: 12, color: "var(--green)" }}>{p.earn}</div>
-                  </div>
-                ))}
-              </div>
-
               <span style={{ fontSize: 11, letterSpacing: "1.5px", color: "var(--gold-dark)", marginBottom: "0.75rem", display: "block" }}>
                 PLAN DE ACCIÓN: 90 DÍAS
               </span>
@@ -79,6 +72,32 @@ export function CursoRedes() {
                 <span>Meta realista: $300 a $800/mes al día 90 combinando referidos + monetización + 1 brand deal.</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* NUEVA SECCIÓN: Monetiza con... + video */}
+        <div style={{ marginTop: "2.5rem" }}>
+          <span style={{ fontSize: 11, letterSpacing: "1.5px", color: "var(--gold-dark)", marginBottom: "0.75rem", display: "block" }}>
+            PLATAFORMAS Y SU POTENCIAL — ELIGE LA TUYA Y MIRA EL VIDEO
+          </span>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))", gap: 10 }}>
+            {PLATAFORMAS.map((p, i) => (
+              <div key={i} style={{ background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 10, padding: "14px 16px", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, flexWrap: "wrap" }}>
+                <div style={{ minWidth: 150 }}>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)", marginBottom: 2 }}>Monetiza con {p.name}</div>
+                  <div style={{ fontSize: 12, color: "var(--green)" }}>{p.earn}</div>
+                </div>
+                <a
+                  href={videoLink(p.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent("video_monetizar", { event_category: "curso", event_label: p.name })}
+                  style={{ flex: "1 1 200px", textAlign: "center", fontSize: 12, fontWeight: 600, color: "var(--gold)", background: "rgba(247,196,73,0.08)", border: "0.5px solid var(--gold-dark)", borderRadius: 8, padding: "9px 12px", textDecoration: "none" }}
+                >
+                  🎬 Aprende a monetizar — mira el video
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </div>
