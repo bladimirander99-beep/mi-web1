@@ -5,6 +5,7 @@ import { EarningsSection } from "./components/EarningsSection";
 import { BlogTeaser } from "./components/BlogTeaser";
 import { Donaciones } from "./components/Donaciones";
 import { AdsterraBanner } from "./components/AdsterraBanner";
+import { AdsterraRef } from "./components/AdsterraRef";
 import { Footer } from "./components/Footer";
 import { ADSTERRA_BANNER } from "@/lib/constants";
 
@@ -18,6 +19,7 @@ export default function Page() {
       <BlogTeaser />
       <Donaciones />
       <AdsterraBanner adCode={ADSTERRA_BANNER} />
+      <AdsterraRef />
       <Footer />
     </>
   );
