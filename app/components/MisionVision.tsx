@@ -41,7 +41,7 @@ export function MisionVision() {
             <div style={{ fontSize: 22, marginBottom: 8 }} aria-hidden="true">🎯</div>
             <h3 style={{ margin: "0 0 8px", fontSize: 15, fontWeight: 600, color: "var(--gold)" }}>MISIÓN</h3>
             <p style={{ margin: 0, fontSize: 13, lineHeight: 1.65, color: "var(--text-muted)" }}>
-              Que cualquier persona, sin experiencia y con tan solo $10 o un celular antiguo, genere sus primeros ingresos en línea con guías paso a paso probadas en la vida real — sin caer en las estafas que yo sufrí.
+              Con dinero o sin dinero: que cualquier persona, sin experiencia y desde un celular antiguo, genere sus primeros ingresos en línea con guías paso a paso probadas en la vida real — y que nadie vuelva a caer en las estafas que yo sufrí.
             </p>
           </div>
           <div style={{ background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 10, padding: "1.5rem" }}>
