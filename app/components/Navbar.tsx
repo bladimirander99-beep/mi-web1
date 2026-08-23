@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { FraseSemanal } from "./FraseSemanal";
 
 const NAV_LINKS = [
   { label: "Exchange",  href: "#exchange" },
@@ -27,23 +28,29 @@ export default function Navbar() {
       position: "sticky",
       top: 0,
       zIndex: 100,
+      gap: "1rem",
     }}>
       {/* LOGO */}
-      <a href="#" style={{ textDecoration: "none" }}>
-        <div style={{ fontSize: 20, fontWeight: 700, color: "var(--gold)" }}>
+      <a href="#" style={{ textDecoration: "none", flexShrink: 0 }}>
+        <div style={{ fontSize: 20, fontWeight: 700, color: "var(--gold)", whiteSpace: "nowrap" }}>
           Dinero<span style={{ color: "var(--text)", fontWeight: 400 }}> Abundante</span>
         </div>
       </a>
 
+      {/* FRASE CENTRAL (se oculta sola en celu por el CSS interno) */}
+      <div style={{ flex: 1, display: "flex", justifyContent: "center", minWidth: 0 }}>
+        <FraseSemanal />
+      </div>
+
       {/* DESKTOP MENU */}
       <ul className="desktop-menu" style={{
-        display: "flex", gap: "1.2rem", listStyle: "none", flexWrap: "wrap",
+        display: "flex", gap: "1.2rem", listStyle: "none", flexWrap: "wrap", flexShrink: 0,
       }}>
         {NAV_LINKS.map(link => (
           <li key={link.href}>
             <a href={link.href} style={{
               color: "var(--text-muted)", textDecoration: "none", fontSize: 13,
-              transition: "color .2s",
+              transition: "color .2s", whiteSpace: "nowrap",
             }}
               onMouseEnter={e => (e.currentTarget.style.color = "var(--gold)")}
               onMouseLeave={e => (e.currentTarget.style.color = "var(--text-muted)")}
@@ -61,7 +68,7 @@ export default function Navbar() {
         style={{
           display: "none",
           background: "none", border: "none",
-          color: "white", fontSize: 28, cursor: "pointer",
+          color: "white", fontSize: 28, cursor: "pointer", flexShrink: 0,
         }}
       >
         {open ? "✕" : "☰"}
