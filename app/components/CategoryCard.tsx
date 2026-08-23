@@ -4,10 +4,9 @@ import { RefItem } from "./RefItem";
 
 interface Props {
   cat: Category;
-  onAddLink: (id: string) => void;
 }
 
-export function CategoryCard({ cat, onAddLink }: Props) {
+export function CategoryCard({ cat }: Props) {
   return (
     <article
       id={cat.id}
@@ -82,28 +81,6 @@ export function CategoryCard({ cat, onAddLink }: Props) {
               categoryId={cat.id}
             />
           ))}
-          <button
-            onClick={() => onAddLink(cat.id)}
-            aria-label={`Agregar plataforma a ${cat.title}`}
-            style={{
-              gridColumn: "1 / -1",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-              background: "transparent",
-              border: "0.5px dashed var(--dark4)",
-              borderRadius: 6,
-              padding: "8px 12px",
-              color: "var(--text-muted)",
-              fontSize: 13,
-              cursor: "pointer",
-              width: "100%",
-              fontFamily: "inherit",
-              marginTop: 2,
-            }}
-          >
-            + Agregar plataforma
-          </button>
         </div>
       </div>
     </article>

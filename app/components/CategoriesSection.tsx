@@ -1,15 +1,13 @@
 "use client";
 import { useMemo, useState, useEffect } from "react";
 import { CATEGORIES } from "@/data/categories";
-import type { Category, RefItem } from "@/types";
+import type { Category } from "@/types";
 import { CategoryCard } from "./CategoryCard";
-import { AddLinkModal } from "./AddLinkModal";
 import { SearchBar } from "./SearchBar";
 import { trackSearch } from "@/lib/tracking";
 
 export function CategoriesSection() {
-  const [categories, setCategories] = useState<Category[]>(CATEGORIES);
-  const [modalCat, setModalCat] = useState<string | null>(null);
+  const [categories] = useState<Category[]>(CATEGORIES);
   const [query, setQuery] = useState("");
 
   /* ── FILTRADO EN VIVO: busca en nombre + badge + descripción ── */
@@ -41,13 +39,6 @@ export function CategoriesSection() {
     const t = setTimeout(() => trackSearch(q, totalResults), 800);
     return () => clearTimeout(t);
   }, [query, totalResults]);
-
-  /* ── Guardar plataforma nueva desde el modal ── */
-  const handleSave = (catId: string, item: RefItem) => {
-    setCategories((prev) =>
-      prev.map((c) => (c.id === catId ? { ...c, links: [...c.links, item] } : c))
-    );
-  };
 
   return (
     <section
@@ -106,17 +97,8 @@ export function CategoriesSection() {
         </div>
       ) : (
         filtered.map((cat) => (
-          <CategoryCard key={cat.id} cat={cat} onAddLink={setModalCat} />
+          <CategoryCard key={cat.id} cat={cat} />
         ))
-      )}
-
-      {/* ── MODAL AGREGAR PLATAFORMA ── */}
-      {modalCat && (
-        <AddLinkModal
-          catId={modalCat}
-          onClose={() => setModalCat(null)}
-          onSave={handleSave}
-        />
       )}
     </section>
   );
