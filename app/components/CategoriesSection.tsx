@@ -52,7 +52,7 @@ export function CategoriesSection() {
   return (
     <section
       aria-labelledby="categorias-title"
-      style={{ maxWidth: 1060, margin: "0 auto", padding: "3.5rem 2rem" }}
+      style={{ maxWidth: 1400, margin: "0 auto", padding: "3.5rem 2rem" }}
     >
       <span style={{ fontSize: 11, letterSpacing: 2, color: "var(--gold)", marginBottom: "0.4rem", display: "block" }}>
         PLATAFORMAS Y MANUALES
