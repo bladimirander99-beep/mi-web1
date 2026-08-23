@@ -1,4 +1,5 @@
 import { Hero } from "./components/Hero";
+import { MisionVision } from "./components/MisionVision";
 import { CategoriesSection } from "./components/CategoriesSection";
 import { CursoRedes } from "./components/CursoRedes";
 import { EarningsSection } from "./components/EarningsSection";
@@ -13,6 +14,7 @@ export default function Page() {
   return (
     <>
       <Hero />
+      <MisionVision />
       <CategoriesSection />
       <CursoRedes />
       <EarningsSection />
