@@ -13,9 +13,6 @@ export const CATEGORIES: Category[] = [
       { name: "BingX", href: "https://bingxdao.com/invite/PKG0CK/", badge: "Hasta $6,000 USDT", desc: "Exchange con copy trading integrado. Copia a los mejores traders y gana sin necesitar experiencia." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #3", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #4", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #5", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: CÓMO GANAR CON EXCHANGES",
     steps: [
@@ -41,8 +38,6 @@ export const CATEGORIES: Category[] = [
       { name: "Takenos", href: "https://takenos.go.link/?adj_t=1ptq1hru&adj_label=bladimirander99", badge: "Cuenta y tarjeta gratis", desc: "Billetera digital para cobrar del exterior en USD y EUR. Tarjeta virtual y física sin costo, ideal para freelancers y trabajadores remotos." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #3", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #4", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: CONFIGURA TU WALLET",
     steps: [
@@ -88,6 +83,7 @@ export const CATEGORIES: Category[] = [
       { name: "RealT", href: "#", badge: "🔒 Próximamente", desc: "Plataforma de real estate tokenizado en USA. Recibe ingresos por alquiler en DAI directamente a tu wallet." },
       { name: "Terabox", href: "https://www.nephobox.com/referral/4398193446742", badge: "1TB gratis + gana", desc: "1TB de almacenamiento gratis en la nube. Invita amigos y gana recompensas. Accede a contenido exclusivo compartido." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
+      { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: INGRESO PASIVO CON APPS",
     steps: [
@@ -108,8 +104,6 @@ export const CATEGORIES: Category[] = [
       { name: "Suno AI", href: "https://suno.com/invite/@andersonbladimir10", badge: "50 créditos gratis + 250 por referido", desc: "Crea canciones completas con IA: letra, voz e instrumentales en segundos. Monetiza tus tracks en Spotify y YouTube." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #3", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #4", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: GANA DINERO CON IA",
     steps: [
@@ -132,9 +126,6 @@ export const CATEGORIES: Category[] = [
       { name: "TikTok Ads Affiliate", href: "https://getstartedtiktok.partnerlinks.io/r9j69afsoj58", badge: "20% comisión + $20 por referido", hot: true, desc: "Programa oficial de TikTok: gana 20% de lo que inviertan los negocios que refieras para anunciarse, más bonos de $20 y $400 por volumen." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #3", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #4", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #5", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: DE CREADOR A GENERADOR DE INGRESOS",
     steps: [
@@ -159,7 +150,6 @@ export const CATEGORIES: Category[] = [
       { name: "1Win Token Bot", href: "https://t.me/OneWinTokenBot/start?startapp=refId7650250863", badge: "Gana tokens gratis", desc: "Bot de Telegram de 1Win. Completa misiones diarias, acumula tokens y conviértelos en dinero real." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
       { name: "Próximamente #2", href: "#", badge: "🔒 Próximo" },
-      { name: "Próximamente #3", href: "#", badge: "🔒 Próximo" },
     ],
     manualLabel: "MANUAL: JUEGA Y CONVIERTE EN DINERO",
     steps: [
