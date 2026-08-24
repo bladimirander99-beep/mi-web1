@@ -1,30 +1,81 @@
 import Link from "next/link";
-import { ContactBar } from "./ContactBar";
+
+const COL1 = [
+  { label: "Exchange", href: "#exchange" },
+  { label: "Wallets", href: "#wallets" },
+  { label: "Trading", href: "#trading" },
+  { label: "Apps", href: "#apps" },
+];
+
+const COL2 = [
+  { label: "IA", href: "#ia" },
+  { label: "Video", href: "#video" },
+  { label: "Juegos", href: "#juegos" },
+  { label: "VPN", href: "#vpn" },
+];
+
+const COL3 = [
+  { label: "Curso de Redes", href: "#redes" },
+  { label: "Blog", href: "/blog" },
+  { label: "Sobre Ander", href: "/sobre-mi" },
+  { label: "Contacto", href: "/contacto" },
+];
+
+const LEGAL = [
+  { label: "Privacidad", href: "/privacidad" },
+  { label: "Términos", href: "/terminos" },
+  { label: "Cookies", href: "/cookies" },
+];
 
 export function Footer() {
   return (
-    <footer style={{ background: "var(--dark2)", borderTop: "0.5px solid var(--dark4)", padding: "2rem", textAlign: "center", color: "var(--text-muted)", fontSize: 13 }}>
-      <div style={{ fontSize: 20, fontWeight: 700, color: "var(--gold)", marginBottom: "0.5rem" }}>
-        Dinero<span style={{ color: "var(--text)", fontWeight: 400 }}> Abundante</span>
+    <footer style={{ background: "var(--dark2)", borderTop: "0.5px solid var(--dark4)", padding: "3rem 2rem 1.5rem" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 30, marginBottom: 30 }}>
+          <div>
+            <div style={{ fontSize: 20, fontWeight: 700, color: "var(--gold)", marginBottom: 10 }}>
+              Dinero<span style={{ color: "var(--text)", fontWeight: 400 }}> Abundante</span>
+            </div>
+            <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
+              Guías reales para generar ingresos en línea. Probadas con tiempo y dinero real. 💛
+            </p>
+          </div>
+
+          <FooterCol title="Plataformas" links={COL1} />
+          <FooterCol title="Herramientas" links={COL2} />
+          <FooterCol title="Aprender" links={COL3} />
+        </div>
+
+        <div style={{ borderTop: "0.5px solid var(--dark4)", paddingTop: 20, display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", alignItems: "center" }}>
+          <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>
+            © {new Date().getFullYear()} Dinero Abundante · Hecho con 💛 por Ander
+          </p>
+          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            {LEGAL.map((l) => (
+              <Link key={l.href} href={l.href} style={{ fontSize: 12, color: "var(--text-muted)", textDecoration: "none" }}>
+                {l.label}
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
-
-      <ContactBar />
-
-      <nav aria-label="Enlaces del pie" style={{ display: "flex", justifyContent: "center", gap: 20, flexWrap: "wrap", margin: "1rem 0" }}>
-        <Link href="/" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Inicio</Link>
-        <Link href="/top" style={{ color: "var(--gold)", textDecoration: "none", fontWeight: 600 }}>🏆 Top 5 del mes</Link>
-        <Link href="/#exchange" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Plataformas</Link>
-        <Link href="/blog" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Blog</Link>
-        <Link href="/#redes" style={{ color: "var(--text-muted)", textDecoration: "none" }}>Guía gratis</Link>
-      </nav>
-
-      <p>De la escasez a la abundancia — cada plataforma que activas es un paso hacia tu libertad financiera. Creado por <span style={{ color: "var(--gold)", fontWeight: 600 }}>Ander</span>. 💛</p>
-      <p style={{ marginTop: "0.4rem", fontSize: 12, color: "#1e3a52" }}>
-        Las ganancias mostradas son estimadas y no garantizadas. Invierte solo lo que puedas permitirte perder.
-      </p>
-      <p style={{ marginTop: "1rem", fontSize: 11, color: "var(--text-muted)" }}>
-        © {new Date().getFullYear()} Dinero Abundante · Todos los derechos reservados
-      </p>
     </footer>
+  );
+}
+
+function FooterCol({ title, links }: { title: string; links: { label: string; href: string }[] }) {
+  return (
+    <div>
+      <p style={{ fontSize: 11, letterSpacing: 1.5, color: "var(--gold)", fontWeight: 700, marginBottom: 12 }}>{title.toUpperCase()}</p>
+      <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
+        {links.map((l) => (
+          <li key={l.href}>
+            <Link href={l.href} style={{ fontSize: 13, color: "var(--text-muted)", textDecoration: "none" }}>
+              {l.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }

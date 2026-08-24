@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Navbar from "@/app/components/Navbar";
 import { DonationFab } from "@/app/components/DonationFab";
+import { CookieBanner } from "@/app/components/CookieBanner";
 import { GA_ID, SITE } from "@/lib/constants";
 import "./globals.css";
 
@@ -55,8 +56,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-
-        {/* GA4 en <head> con async: rápido Y verificable por Search Console */}
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
         <script
           dangerouslySetInnerHTML={{
@@ -73,6 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Navbar />
         <main id="main-content">{children}</main>
         <DonationFab />
+        <CookieBanner />
       </body>
     </html>
   );
