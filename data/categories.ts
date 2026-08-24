@@ -160,4 +160,21 @@ export const CATEGORIES: Category[] = [
     ],
     tip: "Alerta: investiga SIEMPRE antes de invertir dinero en un juego P2E. Empieza solo con los que no requieren inversión inicial.",
   },
+  {
+    id: "vpn", icon: "🛡️", title: "VPN & Proxies",
+    subtitle: "Protege tu identidad y opera múltiples cuentas seguro",
+    links: [
+      { name: "Asocks", href: "https://asocks.com/c/7iq1BJ", badge: "Proxies residenciales", desc: "Proxies residenciales y rotativos para gestionar múltiples cuentas sin bloqueos. Ideal para combinar con Dolphin Anty y multiplicar tus referidos seguro." },
+      { name: "NodeMaven", href: "https://nodemaven.com/?ref_id=db660c0b", badge: "$5 gratis al registrarte", desc: "Proxies residenciales e ISP de alta calidad. Perfectos para scraping, automatización y gestión de múltiples cuentas con Dolphin Anty." },
+      { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
+    ],
+    manualLabel: "MANUAL: OPERA SEGURO CON VPN Y PROXIES",
+    steps: [
+      { title: "Entiende por qué necesitas proxies", desc: "Las plataformas detectan cuentas múltiples por tu IP. Con proxies residenciales, cada cuenta navega como si fuera una persona distinta." },
+      { title: "Combina con Dolphin Anty", desc: "Usa un proxy distinto por cada perfil de Dolphin Anty. Así tus cuentas de redes y exchanges nunca se vinculan entre sí." },
+      { title: "Empieza con poco tráfico", desc: "Contrata solo los GB que necesitas. Para uso normal de referidos y redes, 1-2 GB al mes son suficientes." },
+      { title: "Nunca mezcles cuentas", desc: "Una cuenta = un proxy = un dispositivo. Romper esta regla es la causa #1 de baneos." },
+    ],
+    tip: "Los proxies residenciales de Asocks y NodeMaven hacen que tu tráfico parezca 100% humano: perfecto para escalar referidos sin bloqueos.",
+  },
 ];

@@ -13,7 +13,7 @@ export const APP_DOMAINS: Record<string, string> = {
   "Shappi": "shappi.io", "RollerCoin": "rollercoin.com", "1Win": "1win.com",
   "Degoo": "degoo.com", "Reental": "reental.co", "RealT": "realt.co", "Pi Network": "minepi.com",
   "Telegram Wallet": "telegram.org", "Terabox": "terabox.com", "1Win Token Bot": "t.me",
-  "Takenos": "takenos.com",
+  "Takenos": "takenos.com", "Asocks": "asocks.com", "NodeMaven": "nodemaven.com",
 };
 
 export const IMAGE_FILES: Record<string, string> = {
@@ -30,7 +30,7 @@ export const IMAGE_FILES: Record<string, string> = {
   "TikTok Ads Affiliate": "tiktok-ads",
   "Sweatcoin": "sweatcoin", "An Earn App": "earn", "Faucet Crypto": "faucet", "Shappi": "shappi",
   "RollerCoin": "rollercoin", "1Win": "1win", "1Win Token Bot": "1win",
-  "Takenos": "takenos",
+  "Takenos": "takenos", "NodeMaven": "nodemaven",
 };
 
 export const EARNING_TIPS: Record<string, string> = {
@@ -77,4 +77,6 @@ export const EARNING_TIPS: Record<string, string> = {
   "1Win": "💡 Usa la estrategia Martingala con control en 1Win. Apuesta al equipo favorito con análisis previo.",
   "1Win Token Bot": "💡 Completa las misiones del bot diariamente. Acumula tokens y espera el listing para venderlos al mejor precio.",
   "Takenos": "💡 Cobra pagos internacionales con Takenos: tarjeta Visa virtual gratis + retiros a tu cuenta local en dólares.",
+  "Asocks": "💡 Combina Asocks con Dolphin Anty: una IP distinta por perfil y escala tus cuentas sin baneos.",
+  "NodeMaven": "💡 Reclama $5 gratis al registrarte en NodeMaven. Proxies residenciales perfectos para automatizar con bots o múltiples cuentas.",
 };
