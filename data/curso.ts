@@ -85,6 +85,12 @@ export const PLAT_TIPS: Record<string, string> = {
   "Audiomack": "Paga mejor que Spotify a artistas nuevos. Sube contenido consistente.",
 };
 
+export const TERABOX_CURSOS: Record<string, string> = {
+  "TikTok": "https://1024terabox.com/s/1tZMIDkO3sz0PRI5gFOsQag",
+  "YouTube": "https://1024terabox.com/s/1yChS-tM39xEZWirSeNCEsQ",
+  "Facebook": "https://1024terabox.com/s/1hpQbHLEpU2_oyfyDalNz9Q",
+};
+
 export const PLAN_90: PlanStep[] = [
   { n: 1, t: "Días 1 al 10: Configura todo", d: "Perfiles activos, bonos reclamados y primeros 3 videos publicados." },
   { n: 2, t: "Días 11 al 30: Consistencia diaria", d: "1 video por día. Analiza qué formato tiene más vistas y doble apuesta en ese estilo." },

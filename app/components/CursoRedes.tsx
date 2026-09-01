@@ -1,5 +1,5 @@
 "use client";
-import { PLATAFORMAS, PLAT_TIPS } from "@/data/curso";
+import { PLATAFORMAS, PLAT_TIPS, TERABOX_CURSOS } from "@/data/curso";
 import { trackEvent } from "@/lib/tracking";
 
 const videoLink = (name: string) =>
@@ -19,7 +19,7 @@ export function CursoRedes() {
           De cero seguidores a ingresos reales. Elige tu plataforma, sigue la instrucción y mira el video.
         </p>
 
-        {/* PLATAFORMAS: nombre + ganancia + instrucción + video */}
+        {/* PLATAFORMAS: nombre + ganancia + instrucción + video + curso Terabox */}
         <div>
           <span style={{ fontSize: 11, letterSpacing: "1.5px", color: "var(--gold-dark)", marginBottom: "0.75rem", display: "block" }}>
             PLATAFORMAS Y SU POTENCIAL — ELIGE LA TUYA Y MIRA EL VIDEO
@@ -43,6 +43,17 @@ export function CursoRedes() {
                 >
                   🎬 Aprende a monetizar — mira el video
                 </a>
+                {TERABOX_CURSOS[p.name] && (
+                  <a
+                    href={TERABOX_CURSOS[p.name]}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => trackEvent("curso_terabox", { event_category: "curso", event_label: p.name })}
+                    style={{ textAlign: "center", fontSize: 12, fontWeight: 700, color: "var(--dark)", background: "var(--green)", borderRadius: 8, padding: "10px 12px", textDecoration: "none", boxShadow: "0 4px 14px rgba(34,197,94,0.25)" }}
+                  >
+                    📂 CURSO GRATIS en Terabox — yo lo pagué por ti 💛
+                  </a>
+                )}
               </div>
             ))}
           </div>
