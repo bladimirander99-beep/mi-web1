@@ -12,8 +12,9 @@ interface Props {
 export function AdsterraBanner(_props: Props = {}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
+  const [state, setState] = useState<"waiting" | "filled" | "empty">("waiting");
 
-  // Lazy load: solo carga el anuncio cuando el usuario se acerca haciendo scroll
+  // Lazy load: carga el anuncio solo cuando el usuario se acerca haciendo scroll
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -32,7 +33,7 @@ export function AdsterraBanner(_props: Props = {}) {
     return () => observer.disconnect();
   }, []);
 
-  // Inyecta el script como elemento REAL (innerHTML no ejecuta scripts)
+  // Inyecta el script real + detecta si el anuncio llenó el contenedor
   useEffect(() => {
     if (!visible) return;
 
@@ -42,10 +43,27 @@ export function AdsterraBanner(_props: Props = {}) {
     script.src = AD_SRC;
     document.body.appendChild(script);
 
+    let checks = 0;
+    const timer = setInterval(() => {
+      checks += 1;
+      const container = document.getElementById(AD_CONTAINER_ID);
+      if (container && container.children.length > 0) {
+        setState("filled");
+        clearInterval(timer);
+      } else if (checks >= 8) {
+        setState("empty");
+        clearInterval(timer);
+      }
+    }, 1000);
+
     return () => {
+      clearInterval(timer);
       script.remove();
     };
   }, [visible]);
+
+  // Si no hay anuncio disponible, la caja desaparece (sitio limpio)
+  if (state === "empty") return null;
 
   return (
     <div
@@ -64,13 +82,13 @@ export function AdsterraBanner(_props: Props = {}) {
       <div
         id={AD_CONTAINER_ID}
         style={{
-          minHeight: 250,
+          minHeight: state === "filled" ? 0 : 250,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        {!visible && (
+        {state === "waiting" && (
           <span style={{ color: "var(--text-muted)", fontSize: 12 }} aria-hidden="true">
             Cargando anuncio...
           </span>
