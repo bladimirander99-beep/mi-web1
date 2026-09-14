@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function SobreMiPage() {
   return (
     <main style={{ maxWidth: 800, margin: "0 auto", padding: "4rem 2rem" }}>
-      <h1 style={{ fontSize: 30, fontWeight: 700, color: "var(--gold)", marginBottom: 24 }}>Sobre Ander 💛</h1>
+      <h1 style={{ fontSize: 30, fontWeight: 700, color: "var(--gold)", marginBottom: 24 }}>Sobre Ander 💚</h1>
 
       <div style={{ display: "flex", gap: 24, alignItems: "flex-start", flexWrap: "wrap", marginBottom: 30 }}>
         <div style={{ flexShrink: 0 }}>
@@ -61,7 +61,7 @@ export default function SobreMiPage() {
           🙏 DIOS ESTÁ CONTIGO EN TODO MOMENTO
         </p>
         <p style={{ margin: "8px 0 0", fontSize: 13, color: "var(--text-muted)" }}>
-          Gracias por ser parte de esta comunidad. 💛
+          Gracias por ser parte de esta comunidad. 💚
         </p>
       </div>
     </main>

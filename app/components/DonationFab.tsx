@@ -98,7 +98,7 @@ export function DonationFab() {
           boxShadow: "0 8px 24px rgba(0,0,0,0.35)",
         }}
       >
-        💛 Apoyar
+        💚 Apoyar
       </button>
 
       {open && (
@@ -118,7 +118,7 @@ export function DonationFab() {
               ✕
             </button>
 
-            <h3 style={{ margin: 0, fontSize: 20, color: "var(--gold)" }}>💛 Apoya a Dinero Abundante</h3>
+            <h3 style={{ margin: 0, fontSize: 20, color: "var(--gold)" }}>💚 Apoya a Dinero Abundante</h3>
             <p style={{ margin: "6px 0 16px", fontSize: 13, color: "var(--text-muted)" }}>
               Tu apoyo mantiene las guías gratis. Dona desde <strong style={{ color: "var(--text)" }}>$1</strong>.
             </p>

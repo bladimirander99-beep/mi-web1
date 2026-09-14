@@ -37,7 +37,7 @@ export function Footer() {
               Dinero<span style={{ color: "var(--text)", fontWeight: 400 }}> Abundante</span>
             </div>
             <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
-              Guías reales para generar ingresos en línea. Probadas con tiempo y dinero real. 💛
+              Guías reales para generar ingresos en línea. Probadas con tiempo y dinero real. 💚
             </p>
           </div>
 
@@ -48,7 +48,7 @@ export function Footer() {
 
         <div style={{ borderTop: "0.5px solid var(--dark4)", paddingTop: 20, display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "space-between", alignItems: "center" }}>
           <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)" }}>
-            © {new Date().getFullYear()} Dinero Abundante · Hecho con 💛 por Ander
+            © {new Date().getFullYear()} Dinero Abundante · Hecho con 💚 por Ander
           </p>
           <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
             {LEGAL.map((l) => (

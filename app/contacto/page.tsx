@@ -10,7 +10,7 @@ export default function ContactoPage() {
     <main style={{ maxWidth: 700, margin: "0 auto", padding: "4rem 2rem" }}>
       <h1 style={{ fontSize: 30, fontWeight: 700, color: "var(--gold)", marginBottom: 12 }}>📬 Contacto</h1>
       <p style={{ color: "var(--text-muted)", fontSize: 15, marginBottom: 30, lineHeight: 1.7 }}>
-        ¿Tienes una duda, sugerencia o quieres colaborar? Escríbenos y te responderemos lo antes posible. 💛
+        ¿Tienes una duda, sugerencia o quieres colaborar? Escríbenos y te responderemos lo antes posible. 💚
       </p>
 
       <div style={{ background: "var(--dark2)", border: "1px solid var(--gold-dark)", borderRadius: 12, padding: 28 }}>
