@@ -19,7 +19,6 @@ export function CursoRedes() {
           De cero seguidores a ingresos reales. Elige tu plataforma, sigue la instrucción y mira el video.
         </p>
 
-        {/* PLATAFORMAS: nombre + ganancia + instrucción + video o curso Terabox */}
         <div>
           <span style={{ fontSize: 11, letterSpacing: "1.5px", color: "var(--gold-dark)", marginBottom: "0.75rem", display: "block" }}>
             PLATAFORMAS Y SU POTENCIAL — ELIGE LA TUYA Y MIRA EL VIDEO
@@ -35,7 +34,6 @@ export function CursoRedes() {
                   💡 {PLAT_TIPS[p.name]}
                 </p>
 
-                {/* Botón de video: SOLO si NO tiene curso Terabox */}
                 {!TERABOX_CURSOS[p.name] && (
                   <a
                     href={videoLink(p.name)}
@@ -48,16 +46,15 @@ export function CursoRedes() {
                   </a>
                 )}
 
-                {/* Botón Terabox: SOLO en TikTok, YouTube y Facebook */}
                 {TERABOX_CURSOS[p.name] && (
                   <a
                     href={TERABOX_CURSOS[p.name]}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackEvent("curso_terabox", { event_category: "curso", event_label: p.name })}
-                    style={{ textAlign: "center", fontSize: 12, fontWeight: 700, color: "var(--dark)", background: "var(--green)", borderRadius: 8, padding: "10px 12px", textDecoration: "none", boxShadow: "0 4px 14px rgba(34,197,94,0.25)" }}
+                    style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: "#052e16", background: "linear-gradient(90deg, #00e676, #69f0ae)", borderRadius: 8, padding: "10px 12px", textDecoration: "none", boxShadow: "0 4px 18px rgba(0,230,118,0.45)" }}
                   >
-                    📂 CURSO GRATIS en Terabox — yo lo pagué por ti 💛
+                    📂 CURSO GRATIS en Terabox — yo lo pagué por ti 💚
                   </a>
                 )}
               </div>
