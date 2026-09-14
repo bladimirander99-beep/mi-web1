@@ -35,10 +35,10 @@ export function MisionVision() {
             Además, <strong style={{ color: "var(--gold)" }}>compré cursos premium</strong> con dinero que me costó sudor y lágrimas, los apliqué y con ellos generé ingresos reales… y hoy <strong style={{ color: "var(--gold)" }}>los dejo GRATIS aquí para ti</strong>, porque yo sé lo que es no tener ni para empezar. Si tienes ganas de ganar dinero, este sitio que creé es para ayudarte a salir adelante en la etapa financiera de tu vida. 🙏
           </p>
           <p style={{ marginBottom: "1.1rem", lineHeight: 1.8, fontSize: 15, color: "var(--text-muted)" }}>
-            Hoy deseo para ti y para <strong style={{ color: "var(--gold)" }}>todas las personas del mundo</strong> un abundante dinero. Nadie merece sufrir por qué comer, por ropa rota o por falta de dinero. Todos merecen vivir una vida <strong style={{ color: "var(--gold)" }}>extraordinaria y feliz</strong>. Y te prometo algo: <strong style={{ color: "var(--gold)" }}>todo esfuerzo valdrá la pena</strong>. 💛
+            Hoy deseo para ti y para <strong style={{ color: "var(--gold)" }}>todas las personas del mundo</strong> un abundante dinero. Nadie merece sufrir por qué comer, por ropa rota o por falta de dinero. Todos merecen vivir una vida <strong style={{ color: "var(--gold)" }}>extraordinaria y feliz</strong>. Y te prometo algo: <strong style={{ color: "var(--gold)" }}>todo esfuerzo valdrá la pena</strong>. 💚
           </p>
           <p style={{ margin: 0, fontSize: 14, fontStyle: "italic", color: "var(--text-muted)" }}>
-            — Ander, fundador de Dinero Abundante 💛
+            — Ander, fundador de Dinero Abundante 💚
           </p>
         </div>
 
