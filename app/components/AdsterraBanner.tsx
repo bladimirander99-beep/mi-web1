@@ -1,20 +1,23 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
+// Unidad "Banner nativo" ACTIVA en Adsterra
+const AD_SRC = "https://pl30536518.profitableratecpmnetwork.com/fe9f35b08c7eabbb25d9376616ddb51c/invoke.js";
+const AD_CONTAINER_ID = "contenedor-fe9f35b08c7eabbb25d9376616ddb51c";
+
 interface Props {
-  adCode: string;
+  adCode?: string;
 }
 
-export function AdsterraBanner({ adCode }: Props) {
+export function AdsterraBanner(_props: Props = {}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
+  // Lazy load: solo carga el anuncio cuando el usuario se acerca haciendo scroll
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    // Solo carga el anuncio cuando el usuario hace scroll cerca de él
-    // Esto evita que el script de Adsterra compita con tu contenido inicial
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -22,12 +25,27 @@ export function AdsterraBanner({ adCode }: Props) {
           observer.disconnect();
         }
       },
-      { rootMargin: "200px" } // empieza a cargar 200px antes de entrar en pantalla
+      { rootMargin: "200px" }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  // Inyecta el script como elemento REAL (innerHTML no ejecuta scripts)
+  useEffect(() => {
+    if (!visible) return;
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.setAttribute("data-cfasync", "false");
+    script.src = AD_SRC;
+    document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
+  }, [visible]);
 
   return (
     <div
@@ -43,24 +61,21 @@ export function AdsterraBanner({ adCode }: Props) {
         maxWidth: 1060,
       }}
     >
-      {visible ? (
-        <div dangerouslySetInnerHTML={{ __html: adCode }} />
-      ) : (
-        // Reserva de espacio → CLS = 0 (no saltos de layout)
-        <div
-          style={{
-            height: 250,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: "var(--text-muted)",
-            fontSize: 12,
-          }}
-          aria-hidden="true"
-        >
-          Cargando anuncio...
-        </div>
-      )}
+      <div
+        id={AD_CONTAINER_ID}
+        style={{
+          minHeight: 250,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {!visible && (
+          <span style={{ color: "var(--text-muted)", fontSize: 12 }} aria-hidden="true">
+            Cargando anuncio...
+          </span>
+        )}
+      </div>
       <p
         style={{
           fontSize: 10,
@@ -74,3 +89,5 @@ export function AdsterraBanner({ adCode }: Props) {
     </div>
   );
 }
+
+export default AdsterraBanner;
