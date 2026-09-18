@@ -294,9 +294,11 @@ export function RefItem({ item, categoryId }: Props) {
                 <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.5 }}>
                   🚀 <strong style={{ color: "var(--text)" }}>Empieza:</strong> {f.empezar}
                 </p>
-                <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.5 }}>
-                  💰 <strong style={{ color: "var(--green)" }}>Ganas:</strong> {f.ganas}
-                </p>
+                {f.detalle && (
+                  <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.6, background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "8px 10px" }}>
+                    📖 {f.detalle}
+                  </p>
+                )}
                 <a
                   href={f.video ?? videoDefault(item.name, f.name)}
                   target="_blank"
