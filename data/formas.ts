@@ -4,8 +4,18 @@ import { GUIAS_TRADING } from "./formasTrading";
 
 export type { Forma, Riesgo };
 
-export const GUIAS: Record<string, Forma[]> = {
+// Orden automático: 🟢 BAJO → 🟡 MEDIO → 🔴 ALTO en todas las guías
+const ORDEN_RIESGO: Record<Riesgo, number> = { BAJO: 0, MEDIO: 1, ALTO: 2 };
+
+const TODAS: Record<string, Forma[]> = {
   ...GUIAS_EXCHANGE,
   ...GUIAS_WALLETS,
   ...GUIAS_TRADING,
 };
+
+export const GUIAS: Record<string, Forma[]> = Object.fromEntries(
+  Object.entries(TODAS).map(([plataforma, formas]) => [
+    plataforma,
+    [...formas].sort((a, b) => ORDEN_RIESGO[a.riesgo] - ORDEN_RIESGO[b.riesgo]),
+  ])
+);
