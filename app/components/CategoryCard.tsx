@@ -73,7 +73,7 @@ export function CategoryCard({ cat }: Props) {
           🚀 ACCEDE · REGÍSTRATE · GANA
         </span>
 
-        <div className="cat-body" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+        <div className="cat-body" style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 6 }}>
           {cat.links.map((lnk, i) => (
             <RefItem
               key={`${cat.id}-${lnk.name}-${i}`}
