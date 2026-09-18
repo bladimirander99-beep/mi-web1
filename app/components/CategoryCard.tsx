@@ -1,8 +1,6 @@
 "use client";
-import { Fragment } from "react";
 import type { Category } from "@/types";
 import { RefItem } from "./RefItem";
-import { FormasBinance } from "./FormasBinance";
 
 interface Props {
   cat: Category;
@@ -77,16 +75,11 @@ export function CategoryCard({ cat }: Props) {
 
         <div className="cat-body" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
           {cat.links.map((lnk, i) => (
-            <Fragment key={`${cat.id}-${lnk.name}-${i}`}>
-              <RefItem item={lnk} categoryId={cat.id} />
-
-              {/* Sección de formas de ganar JUSTO debajo de Binance */}
-              {lnk.name === "Binance" && (
-                <div style={{ gridColumn: "1 / -1" }}>
-                  <FormasBinance />
-                </div>
-              )}
-            </Fragment>
+            <RefItem
+              key={`${cat.id}-${lnk.name}-${i}`}
+              item={lnk}
+              categoryId={cat.id}
+            />
           ))}
         </div>
       </div>

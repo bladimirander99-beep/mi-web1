@@ -2,8 +2,9 @@
 import { useState } from "react";
 import type { RefItem as RefItemType } from "@/types";
 import { EARNING_TIPS } from "@/data/logos";
+import { GUIAS, type Riesgo } from "@/data/formas";
 import { getImageSlug, getLogoUrl, getFaviconUrl } from "@/lib/utils";
-import { trackReferralClick } from "@/lib/tracking";
+import { trackReferralClick, trackEvent } from "@/lib/tracking";
 import { VideoPlayer } from "./VideoPlayer";
 
 interface Props {
@@ -11,15 +12,25 @@ interface Props {
   categoryId: string;
 }
 
+const RIESGO: Record<Riesgo, { chip: string; label: string }> = {
+  BAJO: { chip: "rgba(34,197,94,0.12)", label: "🟢 Riesgo bajo" },
+  MEDIO: { chip: "rgba(247,196,73,0.12)", label: "🟡 Riesgo medio" },
+  ALTO: { chip: "rgba(239,68,68,0.12)", label: "🔴 Riesgo alto" },
+};
+
+const videoDefault = (plat: string, name: string) =>
+  `https://www.youtube.com/results?search_query=${encodeURIComponent("cómo usar " + name + " en " + plat + " paso a paso")}`;
+
 export function RefItem({ item, categoryId }: Props) {
   const [imgFormat, setImgFormat] = useState<"jpg" | "remote" | "favicon" | "none">("jpg");
+  const [showFormas, setShowFormas] = useState(false);
   const logoUrl = getLogoUrl(item.name);
   const faviconUrl = getFaviconUrl(item.name);
   const isPending = item.href === "#";
   const slug = getImageSlug(item.name);
+  const formas = GUIAS[item.name];
 
   // 🔑 CRÍTICO SEO: rel="sponsored" le dice a Google que es link de afiliado
-  // Sin esto, Google podría penalizar tu sitio por links pagados.
   const affiliateRel = "sponsored noopener noreferrer";
 
   const handleClick = () => {
@@ -217,6 +228,93 @@ export function RefItem({ item, categoryId }: Props) {
             <span aria-hidden="true">🎬</span>
             <span>¡Aquí está el video instructivo! Ábrelo abajo 👇</span>
           </div>
+        </div>
+      )}
+
+      {/* 🆕 BOTÓN de formas de ganar (solo si la plataforma tiene guía) */}
+      {!isPending && formas && (
+        <button
+          type="button"
+          onClick={() => {
+            setShowFormas(!showFormas);
+            trackEvent("toggle_formas", { event_category: item.name, event_label: showFormas ? "cerrar" : "abrir" });
+          }}
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "10px 14px",
+            fontSize: 12,
+            fontWeight: 700,
+            color: "var(--gold)",
+            background: "rgba(247,196,73,0.06)",
+            border: "none",
+            borderBottom: "0.5px solid var(--dark4)",
+            cursor: "pointer",
+          }}
+        >
+          <span>💰 Ver {formas.length} formas de ganar con {item.name}</span>
+          <span style={{ transform: showFormas ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>▼</span>
+        </button>
+      )}
+
+      {/* 🆕 LISTA desplegable de formas de ganar */}
+      {!isPending && formas && showFormas && (
+        <div style={{ padding: "12px 14px", background: "var(--dark3)", borderBottom: "0.5px solid var(--dark4)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {formas.map((f) => (
+              <div
+                key={f.name}
+                style={{
+                  background: "var(--dark2)",
+                  border: "0.5px solid var(--dark4)",
+                  borderRadius: 8,
+                  padding: "10px 12px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 6,
+                }}
+              >
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>
+                    {f.emoji} {f.name}
+                  </div>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text-muted)", background: RIESGO[f.riesgo].chip, borderRadius: 999, padding: "3px 8px", whiteSpace: "nowrap" }}>
+                    {RIESGO[f.riesgo].label}
+                  </span>
+                </div>
+                <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.5 }}>
+                  🚀 <strong style={{ color: "var(--text)" }}>Empieza:</strong> {f.empezar}
+                </p>
+                <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.5 }}>
+                  💰 <strong style={{ color: "var(--green)" }}>Ganas:</strong> {f.ganas}
+                </p>
+                <a
+                  href={f.video ?? videoDefault(item.name, f.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent("video_forma", { event_category: item.name, event_label: f.name })}
+                  style={{
+                    textAlign: "center",
+                    fontSize: 11,
+                    fontWeight: 600,
+                    color: "var(--gold)",
+                    background: "rgba(247,196,73,0.08)",
+                    border: "0.5px solid var(--gold-dark)",
+                    borderRadius: 6,
+                    padding: "7px 10px",
+                    textDecoration: "none",
+                  }}
+                >
+                  🎬 Video explicativo
+                </a>
+              </div>
+            ))}
+          </div>
+          <p style={{ marginTop: 10, textAlign: "center", fontSize: 11, fontWeight: 700, color: "var(--gold)" }}>
+            🥇 80% en 🟢 · 15% en 🟡 · 5% en 🔴
+          </p>
         </div>
       )}
 
