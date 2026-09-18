@@ -5,7 +5,6 @@ import { EARNING_TIPS } from "@/data/logos";
 import { GUIAS, type Riesgo } from "@/data/formas";
 import { getImageSlug, getLogoUrl, getFaviconUrl } from "@/lib/utils";
 import { trackReferralClick, trackEvent } from "@/lib/tracking";
-import { VideoPlayer } from "./VideoPlayer";
 
 interface Props {
   item: RefItemType;
@@ -326,8 +325,6 @@ export function RefItem({ item, categoryId }: Props) {
           </p>
         </div>
       )}
-
-      {!isPending && <VideoPlayer />}
     </article>
   );
 }
