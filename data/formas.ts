@@ -122,4 +122,72 @@ export const GUIAS: Record<string, Forma[]> = {
     { emoji: "⚡", name: "Futuros perpetuos", riesgo: "ALTO", empezar: "Derivados → perpetuos USDT → x5-x25 con stop-loss.", ganas: "Long o short apalancado; 3 meses de demo antes y máximo 5% del capital." },
     { emoji: "🎰", name: "Pre-Market y tokens nuevos", riesgo: "ALTO", empezar: "Sección Pre-Market → opera tokens antes de su listing.", ganas: "Compras barato antes del listado… volatilidad extrema: solo dinero de riesgo." },
   ],
+  CoinEx: [
+    {
+      emoji: "🏦", name: "CoinEx Earn (ahorro)", riesgo: "BAJO",
+      empezar: "Financial → suscribe USDT flexible o bloqueado (30-90 días).",
+      ganas: "Interés diario de 2%-10%; promos de hasta 12% para nuevos usuarios.",
+      detalle: "En la sección 'Financial' depositas USDT u otras monedas en ahorro flexible (retiras cuando quieras) o bloqueado (30-90 días con tasa mayor). El interés se acredita solo cada día en tu cuenta. Las promos de bienvenida suelen dar 8%-12% APY en tus primeros $500: aprovéchalas apenas te registres.",
+    },
+    {
+      emoji: "🔗", name: "Referidos", riesgo: "BAJO",
+      empezar: "Perfil → Referral → copia tu link y compártelo en tus redes.",
+      ganas: "20% de las comisiones de cada referido, de por vida.",
+      detalle: "Tu link genera el 20% de cada comisión que paguen tus invitados en spot y futuros, para siempre. No hay tope ni vencimiento: si tu referido opera diario, tú cobras diario sin mover un dedo. Con 10 referidos activos son $50-$1,500/mes de ingreso 100% pasivo.",
+    },
+    {
+      emoji: "⛏️", name: "Staking (PoS)", riesgo: "BAJO",
+      empezar: "Financial → Staking → elige ETH, DOT o ADA → suscribir.",
+      ganas: "3%-8% anual pagado en la misma moneda, sin operar.",
+      detalle: "Bloqueas monedas de prueba de participación (ETH, DOT, ADA) y la red te paga recompensas de 3%-8% anual en la misma moneda. No hay riesgo de trading: la única volatilidad es la del precio del activo. Si reinviertes las recompensas cada mes, activas interés compuesto.",
+    },
+    {
+      emoji: "🌾", name: "Launchpad", riesgo: "BAJO",
+      empezar: "Launchpad → stakea CET o USDT en el proyecto activo.",
+      ganas: "Tokens nuevos a precio de lanzamiento: $10-$400 por proyecto.",
+      detalle: "Cuando CoinEx va a listar un proyecto nuevo, stakeas CET o USDT durante unos días y recibes tokens a precio de lanzamiento. Al terminar te devuelven tu capital intacto más los tokens, que vendes en el listing o holdeas. Históricamente cada proyecto ha dejado entre $10 y $400 según tu monto stakeado.",
+    },
+    {
+      emoji: "🎖️", name: "Programa Ambassador", riesgo: "BAJO",
+      empezar: "Sección Ambassador → postula con tus redes o comunidad.",
+      ganas: "$100-$2,000/mes en USDT/CET por crear contenido o comunidad.",
+      detalle: "CoinEx paga mensualmente a quienes crean contenido, traducen material o gestionan comunidades locales. Postulas en la sección 'Ambassador' con tus redes o experiencia, y si te aceptan recibes recompensas fijas + bonos por campañas. Además tienes acceso anticipado a eventos y listados.",
+    },
+    {
+      emoji: "💎", name: "Holdear CET", riesgo: "BAJO",
+      empezar: "Compra CET y mantenlo en tu wallet de CoinEx.",
+      ganas: "Hasta 50% menos comisiones + revalorización por buyback & burn.",
+      detalle: "CET es el token del exchange: tenerlo te da hasta 50% de descuento en comisiones, acceso a Launchpad y participación indirecta en el buyback & burn (CoinEx usa el 20% de sus ganancias para comprar y quemar CET). Menos suministro con el tiempo = presión de precio al alza. Es como tener una 'acción' del exchange.",
+    },
+    {
+      emoji: "🤖", name: "Bots Grid", riesgo: "MEDIO",
+      empezar: "Trading Bot → Spot Grid → parámetros recomendados por IA.",
+      ganas: "3%-15% mensual en mercados laterales, sin mirar la pantalla.",
+      detalle: "Creas un robot que coloca compras escalonadas por debajo del precio y ventas por encima: cada oscilación del mercado cierra micro-ganancias decenas de veces al día. Si eres nuevo, usa los parámetros que sugiere la IA de CoinEx al crearlo. Si el precio sale del rango, el bot se pausa sin pérdidas extra.",
+    },
+    {
+      emoji: "🤝", name: "P2P Comerciante", riesgo: "MEDIO",
+      empezar: "P2P → verifícate como comerciante → publica tus anuncios.",
+      ganas: "Spread de 0.5%-2% por operación: $5-$20/día con volumen constante.",
+      detalle: "En el P2P de CoinEx compras y vendes cripto en moneda local como comerciante verificado. Tu ganancia es el spread entre tu precio de compra y de venta (0.5%-2%). Con $500-$1,000 de volumen diario son $5-$20/día. Regla de seguridad: opera solo con usuarios verificados para evitar contracargos.",
+    },
+    {
+      emoji: "📊", name: "Margin (apalancamiento spot)", riesgo: "MEDIO",
+      empezar: "Margin → pide prestado USDT → opera con x3-x10.",
+      ganas: "Multiplicas tus ganancias de spot… y también tus pérdidas.",
+      detalle: "Pides prestado al exchange para ampliar tu posición en spot con apalancamiento x3-x10. Si el mercado va a tu favor, tu ganancia se multiplica; si va en contra, se multiplica la pérdida Y pagas intereses del préstamo. Úsalo solo después de dominar el spot y siempre con stop-loss definido antes de entrar.",
+    },
+    {
+      emoji: "⚡", name: "Futuros perpetuos", riesgo: "ALTO",
+      empezar: "Futures → perpetuos USDT → x5-x20 con stop-loss SIEMPRE.",
+      ganas: "1% a favor con x10 = +10%; en contra = -10%. Máximo 5% del capital.",
+      detalle: "Los perpetuos de CoinEx permiten hasta x100 en BTC, ETH y +100 pares. Con x10, un 1% a tu favor suma +10% a tu margen; un 1% en contra resta -10%, y si el precio toca tu liquidación pierdes todo el margen. Reglas: 3 meses en demo, stop-loss en cada operación y máximo 5% de tu capital por posición.",
+    },
+    {
+      emoji: "🎰", name: "Caza de gemas (listados nuevos)", riesgo: "ALTO",
+      empezar: "Mercados → filtra monedas nuevas de baja capitalización.",
+      ganas: "x10-x50 si aciertas… o -80%. Solo 1%-2% del capital por gema.",
+      detalle: "CoinEx es famoso por listar monedas pequeñas antes que los exchanges grandes: algunas hicieron x10-x50 cuando el mercado las descubrió. Pero la mayoría se desinfla -80% tras el hype inicial. Estrategia: monta chiquito (1%-2% del capital), vende por partes en la subida y nunca conviertas una apuesta en 'inversión a largo plazo'.",
+    },
+  ],
 };
