@@ -12,6 +12,29 @@ interface Props {
   categoryId: string;
 }
 
+/* Descripciones cortas por plataforma (si una no está aquí, usa su desc original) */
+const DESC_CORTAS: Record<string, string> = {
+  Binance: "El exchange #1 del mundo: +350 criptos, comisiones bajas y más formas de ganar: Earn, referidos, airdrops y copy trading.",
+  Bybit: "Líder en futuros y copy trading: bots gratis, Launchpad y hasta 50% de comisión por referidos.",
+  CoinEx: "+700 monedas para cazar gemas y 20% de comisiones de tus referidos, de por vida.",
+  Margex: "Futuros con staking integrado: tu cripto genera intereses mientras operas.",
+  OKX: "Exchange top con Web3 wallet integrada: opera, stakea y usa dApps sin salir de la app.",
+  KuCoin: "La casa de las gemas: lista tokens antes que nadie y gana con lending y referidos.",
+  MEXC: "Cero comisiones en spot y los listados más rápidos: ideal para tokens recién nacidos.",
+  "Gate.io": "Exchange veterano con +1,700 mercados: airdrops, startup y copy trading incluidos.",
+  "Trust Wallet": "Wallet móvil multimoneda: tus claves, tus criptos. Staking y dApps en un toque.",
+  MetaMask: "La puerta a Ethereum: conecta a miles de dApps, DeFi y NFTs desde tu navegador.",
+  Exodus: "Wallet elegante para PC y móvil: swap integrado y soporte humano 24/7.",
+  TradingView: "Gráficos pro y alertas en tiempo real: analiza el mercado como un institucional, gratis.",
+  Bitget: "Copy trading líder: replica a traders top con un clic y controla el riesgo con TP/SL.",
+  BingX: "Social trading con cuenta demo: practica sin riesgo y copia estrategias reales.",
+  Honeygain: "Gana dólares pasivos vendiendo tu internet no usado: solo déjala encendida.",
+  Freecash: "Tareas, encuestas y ofertas que pagan en cripto o PayPal desde $5.",
+  ChatGPT: "Tu empleado IA 24/7: escribe, programa, resume y crea contenido por ti, gratis.",
+  YouTube: "Sube videos y cobra con AdSense y patrocinios: el ingreso pasivo más grande de internet.",
+  TikTok: "Videos cortos con alcance explosivo: el Creator Fund y las marcas pagan por tus vistas.",
+};
+
 const RIESGO: Record<Riesgo, { chip: string; label: string }> = {
   BAJO: { chip: "rgba(34,197,94,0.12)", label: "🟢 Riesgo bajo" },
   MEDIO: { chip: "rgba(247,196,73,0.12)", label: "🟡 Riesgo medio" },
@@ -200,8 +223,8 @@ export function RefItem({ item, categoryId }: Props) {
         </div>
       )}
 
-      {/* Descripción */}
-      {!isPending && item.desc && (
+      {/* Descripción corta (sin chip de video) */}
+      {!isPending && (DESC_CORTAS[item.name] || item.desc) && (
         <div
           style={{
             padding: "10px 14px",
@@ -209,29 +232,13 @@ export function RefItem({ item, categoryId }: Props) {
             borderBottom: "0.5px solid var(--dark4)",
           }}
         >
-          <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, marginBottom: 8 }}>
-            {item.desc}
+          <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
+            {DESC_CORTAS[item.name] ?? item.desc}
           </p>
-          <div
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 6,
-              fontSize: 11,
-              color: "var(--gold)",
-              background: "rgba(0,198,255,0.08)",
-              border: "0.5px solid var(--gold-dark)",
-              borderRadius: 20,
-              padding: "3px 12px",
-            }}
-          >
-            <span aria-hidden="true">🎬</span>
-            <span>¡Aquí está el video instructivo! Ábrelo abajo 👇</span>
-          </div>
         </div>
       )}
 
-      {/* 🆕 BOTÓN de formas de ganar (solo si la plataforma tiene guía) */}
+      {/* Botón de formas de ganar (solo si la plataforma tiene guía) */}
       {!isPending && formas && (
         <button
           type="button"
@@ -259,7 +266,7 @@ export function RefItem({ item, categoryId }: Props) {
         </button>
       )}
 
-      {/* 🆕 LISTA desplegable de formas de ganar */}
+      {/* Lista desplegable de formas de ganar */}
       {!isPending && formas && showFormas && (
         <div style={{ padding: "12px 14px", background: "var(--dark3)", borderBottom: "0.5px solid var(--dark4)" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
