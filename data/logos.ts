@@ -62,7 +62,7 @@ export const EARNING_TIPS: Record<string, string> = {
   "Terabox": "💡 Comparte tus archivos públicos en Terabox y gana recompensas por cada descarga de tu contenido.",
   "ElevenLabs": "💡 Clona tu voz en ElevenLabs y vende narración de audiolibros en ACX. Cobras por cada hora de audio.",
   "Jasper IA": "💡 Escribe artículos SEO con Jasper en 10 minutos. Véndelos en Fiverr a $20-$50 cada uno.",
-  "Dolphin Anty": "💡 Crea múltiples cuentas de redes sociales con Dolphin Anty. Multiplica tus referidos x10 sin ser detectado.",
+  "Dolphin Anty": "💡 Crea múltiples cuentas de redes sociales con Dolphin Anty. Gestiona múltiples cuentas de clientes sin mezclar sesiones: la herramienta de agencias y community managers profesionales..",
   "Suno AI": "💡 Crea 3 canciones al día en Suno con IA y súbelas a Spotify con DistroKid. Royalties pasivos de por vida.",
   "CapCut": "💡 Crea 3 videos cortos al día con CapCut. Publica en TikTok, Reels y Shorts para triplicar tu alcance.",
   "Canva Pro": "💡 Diseña packs de templates en Canva y véndelos en Etsy o Gumroad. Un pack puede valer $15-$50.",
