@@ -5,6 +5,7 @@ import { GUIAS_APPS } from "./formasApps";
 import { GUIAS_IA } from "./formasIA";
 import { GUIAS_VIDEO } from "./formasVideo";
 import { GUIAS_JUEGOS } from "./formasJuegos";
+import { GUIAS_VPN } from "./formasVpn";
 
 export type { Forma, Riesgo };
 
@@ -19,6 +20,7 @@ const TODAS: Record<string, Forma[]> = {
   ...GUIAS_IA,
   ...GUIAS_VIDEO,
   ...GUIAS_JUEGOS,
+  ...GUIAS_VPN,
 };
 
 export const GUIAS: Record<string, Forma[]> = Object.fromEntries(

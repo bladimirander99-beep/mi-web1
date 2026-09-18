@@ -164,7 +164,7 @@ export const CATEGORIES: Category[] = [
     id: "vpn", icon: "🛡️", title: "VPN & Proxies",
     subtitle: "Protege tu identidad y opera múltiples cuentas seguro",
     links: [
-      { name: "Asocks", href: "https://asocks.com/c/7iq1BJ", badge: "Proxies residenciales", desc: "Proxies residenciales y rotativos para gestionar múltiples cuentas sin bloqueos. Ideal para combinar con Dolphin Anty y multiplicar tus referidos seguro." },
+      { name: "Asocks", href: "https://asocks.com/c/7iq1BJ", badge: "Proxies residenciales", desc: "Proxies residenciales y rotativos para gestionar múltiples cuentas sin bloqueos. Ideal para combinar con Dolphin Anty: una IP residencial limpia por perfil de cliente, gestión nivel agencia." },
       { name: "NodeMaven", href: "https://nodemaven.com/?ref_id=db660c0b", badge: "$5 gratis al registrarte", desc: "Proxies residenciales e ISP de alta calidad. Perfectos para scraping, automatización y gestión de múltiples cuentas con Dolphin Anty." },
       { name: "Próximamente #1", href: "#", badge: "🔒 Próximo" },
     ],

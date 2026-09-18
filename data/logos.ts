@@ -77,6 +77,6 @@ export const EARNING_TIPS: Record<string, string> = {
   "1Win": "💡 Usa la estrategia Martingala con control en 1Win. Apuesta al equipo favorito con análisis previo.",
   "1Win Token Bot": "💡 Completa las misiones del bot diariamente. Acumula tokens y espera el listing para venderlos al mejor precio.",
   "Takenos": "💡 Cobra pagos internacionales con Takenos: tarjeta Visa virtual gratis + retiros a tu cuenta local en dólares.",
-  "Asocks": "💡 Combina Asocks con Dolphin Anty: una IP distinta por perfil y escala tus cuentas sin baneos.",
+  "Asocks": "💡 Combina Asocks con Dolphin Anty: una IP residencial por perfil para gestionar múltiples cuentas reales de clientes sin contaminación.",
   "NodeMaven": "💡 Reclama $5 gratis al registrarte en NodeMaven. Proxies residenciales perfectos para automatizar con bots o múltiples cuentas.",
 };
