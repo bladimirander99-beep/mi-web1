@@ -402,10 +402,10 @@ export function RefItem({ item, categoryId }: Props) {
             ) : (
               <div style={{ borderRadius: 8, border: "0.5px solid var(--dark4)", background: "var(--dark3)", padding: "2rem 1rem", textAlign: "center" }}>
                 <div style={{ fontSize: 32, marginBottom: 8 }}>🎥</div>
-                <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 12px", lineHeight: 1.6 }}>
+                        <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 12px", lineHeight: 1.6 }}>
                   {videoForma.video
                     ? "Tu video está alojado fuera de YouTube (Terabox u otro). Ábrelo en pestaña nueva para verlo:"
-                    : "Aún no hay video propio para esta forma. Cuando lo tengas, pega tu link en data/formas.ts (campo video). Mientras tanto, búscalo en YouTube:"}
+                    : "Estoy trabajando arduamente en grabar videos propios de cada forma, para que tú no tengas que complicarte como yo lo hice. Mientras tanto, búscalo en YouTube:"}
                 </p>
                 <a
                   href={videoForma.video ?? videoDefault(item.name, videoForma.name)}
