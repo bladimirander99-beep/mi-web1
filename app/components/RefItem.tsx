@@ -2,7 +2,7 @@
 import { useState } from "react";
 import type { RefItem as RefItemType } from "@/types";
 import { EARNING_TIPS } from "@/data/logos";
-import { GUIAS, type Riesgo } from "@/data/formas";
+import { GUIAS, type Riesgo, type Forma } from "@/data/formas";
 import { getImageSlug, getLogoUrl, getFaviconUrl } from "@/lib/utils";
 import { trackReferralClick, trackEvent } from "@/lib/tracking";
 
@@ -43,9 +43,17 @@ const RIESGO: Record<Riesgo, { chip: string; label: string }> = {
 const videoDefault = (plat: string, name: string) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent("cómo usar " + name + " en " + plat + " paso a paso")}`;
 
+/* Convierte un link de YouTube en URL embebible (para el modal) */
+const embedUrl = (url?: string): string | null => {
+  if (!url) return null;
+  const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
+  return m ? `https://www.youtube.com/embed/${m[1]}` : null;
+};
+
 export function RefItem({ item, categoryId }: Props) {
   const [imgFormat, setImgFormat] = useState<"jpg" | "remote" | "favicon" | "none">("jpg");
   const [showFormas, setShowFormas] = useState(false);
+  const [videoForma, setVideoForma] = useState<Forma | null>(null);
   const logoUrl = getLogoUrl(item.name);
   const faviconUrl = getFaviconUrl(item.name);
   const isPending = item.href === "#";
@@ -222,7 +230,7 @@ export function RefItem({ item, categoryId }: Props) {
         </div>
       )}
 
-      {/* Descripción corta (sin chip de video) */}
+      {/* Descripción corta */}
       {!isPending && (DESC_CORTAS[item.name] || item.desc) && (
         <div
           style={{
@@ -237,7 +245,7 @@ export function RefItem({ item, categoryId }: Props) {
         </div>
       )}
 
-      {/* Botón de formas de ganar (solo si la plataforma tiene guía) */}
+      {/* Botón de formas de ganar */}
       {!isPending && formas && (
         <button
           type="button"
@@ -298,11 +306,12 @@ export function RefItem({ item, categoryId }: Props) {
                     📖 {f.detalle}
                   </p>
                 )}
-                <a
-                  href={f.video ?? videoDefault(item.name, f.name)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackEvent("video_forma", { event_category: item.name, event_label: f.name })}
+                <button
+                  type="button"
+                  onClick={() => {
+                    trackEvent("video_forma", { event_category: item.name, event_label: f.name });
+                    setVideoForma(f);
+                  }}
                   style={{
                     textAlign: "center",
                     fontSize: 11,
@@ -312,17 +321,112 @@ export function RefItem({ item, categoryId }: Props) {
                     border: "0.5px solid var(--gold-dark)",
                     borderRadius: 6,
                     padding: "7px 10px",
-                    textDecoration: "none",
+                    cursor: "pointer",
                   }}
                 >
-                  🎬 Video explicativo
-                </a>
+                  🎬 Video instructivo
+                </button>
               </div>
             ))}
           </div>
           <p style={{ marginTop: 10, textAlign: "center", fontSize: 11, fontWeight: 700, color: "var(--gold)" }}>
             🥇 80% en 🟢 · 15% en 🟡 · 5% en 🔴
           </p>
+        </div>
+      )}
+
+      {/* 🎬 VENTANA FLOTANTE (modal) con el video de la forma */}
+      {videoForma && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Video instructivo: ${videoForma.name}`}
+          onClick={() => setVideoForma(null)}
+          style={{
+            position: "fixed",
+            inset: 0,
+            zIndex: 999,
+            background: "rgba(0,0,0,0.8)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "1rem",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "var(--dark2)",
+              border: "0.5px solid var(--gold-dark)",
+              borderRadius: 12,
+              maxWidth: 720,
+              width: "100%",
+              padding: "1rem",
+              position: "relative",
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setVideoForma(null)}
+              aria-label="Cerrar video"
+              style={{
+                position: "absolute",
+                top: 8,
+                right: 8,
+                background: "var(--dark4)",
+                border: "none",
+                color: "var(--text)",
+                borderRadius: 6,
+                width: 28,
+                height: 28,
+                cursor: "pointer",
+                fontWeight: 700,
+              }}
+            >
+              ✕
+            </button>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--gold)", marginBottom: 8, paddingRight: 32 }}>
+              🎬 {videoForma.emoji} {videoForma.name} — Video instructivo
+            </div>
+
+            {embedUrl(videoForma.video) ? (
+              <div style={{ position: "relative", paddingTop: "56.25%", borderRadius: 8, overflow: "hidden", background: "#000" }}>
+                <iframe
+                  src={embedUrl(videoForma.video)!}
+                  title={`Video instructivo: ${videoForma.name}`}
+                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            ) : (
+              <div style={{ borderRadius: 8, border: "0.5px solid var(--dark4)", background: "var(--dark3)", padding: "2rem 1rem", textAlign: "center" }}>
+                <div style={{ fontSize: 32, marginBottom: 8 }}>🎥</div>
+                <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 12px", lineHeight: 1.6 }}>
+                  {videoForma.video
+                    ? "Tu video está alojado fuera de YouTube (Terabox u otro). Ábrelo en pestaña nueva para verlo:"
+                    : "Aún no hay video propio para esta forma. Cuando lo tengas, pega tu link en data/formas.ts (campo video). Mientras tanto, búscalo en YouTube:"}
+                </p>
+                <a
+                  href={videoForma.video ?? videoDefault(item.name, videoForma.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: "inline-block",
+                    fontSize: 12,
+                    fontWeight: 800,
+                    color: "#052e16",
+                    background: "linear-gradient(90deg, #00e676, #69f0ae)",
+                    borderRadius: 8,
+                    padding: "9px 14px",
+                    textDecoration: "none",
+                  }}
+                >
+                  ▶ Abrir video ahora
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </article>
