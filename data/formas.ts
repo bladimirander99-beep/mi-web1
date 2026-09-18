@@ -1,6 +1,7 @@
 import { GUIAS_EXCHANGE, type Forma, type Riesgo } from "./formasExchange";
 import { GUIAS_WALLETS } from "./formasWallets";
 import { GUIAS_TRADING } from "./formasTrading";
+import { GUIAS_APPS } from "./formasApps";
 
 export type { Forma, Riesgo };
 
@@ -11,6 +12,7 @@ const TODAS: Record<string, Forma[]> = {
   ...GUIAS_EXCHANGE,
   ...GUIAS_WALLETS,
   ...GUIAS_TRADING,
+  ...GUIAS_APPS,
 };
 
 export const GUIAS: Record<string, Forma[]> = Object.fromEntries(
