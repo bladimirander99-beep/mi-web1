@@ -45,6 +45,11 @@ export function CursoRedes() {
               const isOpenReq = openRequisitos[p.name] || false;
               const isOpenForm = openFormas[p.name] || false;
 
+              /* Dividir requisitos en 2 columnas */
+              const mitad = requisitos ? Math.ceil(requisitos.length / 2) : 0;
+              const col1 = requisitos ? requisitos.slice(0, mitad) : [];
+              const col2 = requisitos ? requisitos.slice(mitad) : [];
+
               return (
                 <div key={i} style={{ background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 10, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
                   <div>
@@ -67,18 +72,31 @@ export function CursoRedes() {
                     </button>
                   )}
 
-                  {/* 📋 Lista requisitos */}
+                  {/* 📋 Requisitos en 2 columnas */}
                   {requisitos && isOpenReq && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                      {requisitos.map((r) => (
-                        <div key={r.name} style={{ display: "flex", alignItems: "flex-start", gap: 8, background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "8px 10px" }}>
-                          <span style={{ fontSize: 12, flexShrink: 0 }}>{r.icono}</span>
-                          <div>
-                            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text)", marginBottom: 1 }}>{r.name}</div>
-                            <div style={{ fontSize: 10, color: "var(--text-muted)", lineHeight: 1.4 }}>{r.detalle}</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                        {col1.map((r) => (
+                          <div key={r.name} style={{ display: "flex", alignItems: "flex-start", gap: 6, background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "7px 8px" }}>
+                            <span style={{ fontSize: 11, flexShrink: 0 }}>{r.icono}</span>
+                            <div>
+                              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--text)", marginBottom: 1 }}>{r.name}</div>
+                              <div style={{ fontSize: 9, color: "var(--text-muted)", lineHeight: 1.35 }}>{r.detalle}</div>
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                        {col2.map((r) => (
+                          <div key={r.name} style={{ display: "flex", alignItems: "flex-start", gap: 6, background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "7px 8px" }}>
+                            <span style={{ fontSize: 11, flexShrink: 0 }}>{r.icono}</span>
+                            <div>
+                              <div style={{ fontSize: 10, fontWeight: 700, color: "var(--text)", marginBottom: 1 }}>{r.name}</div>
+                              <div style={{ fontSize: 9, color: "var(--text-muted)", lineHeight: 1.35 }}>{r.detalle}</div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   )}
 
@@ -94,17 +112,17 @@ export function CursoRedes() {
                     </button>
                   )}
 
-                  {/* 💰 Lista formas de ganar */}
+                  {/* 💰 Formas de ganar en 2 columnas */}
                   {formasRed && isOpenForm && (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
                       {formasRed.map((f) => (
-                        <div key={f.name} style={{ background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "8px 10px", display: "flex", flexDirection: "column", gap: 4 }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 6 }}>
-                            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text)" }}>{f.emoji} {f.name}</div>
-                            <span style={{ fontSize: 9, fontWeight: 700, color: "var(--text-muted)", background: FACILIDAD_LABEL[f.facilidad].chip, borderRadius: 999, padding: "2px 6px", whiteSpace: "nowrap" }}>{FACILIDAD_LABEL[f.facilidad].label}</span>
+                        <div key={f.name} style={{ background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "7px 8px", display: "flex", flexDirection: "column", gap: 3 }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 4 }}>
+                            <div style={{ fontSize: 10, fontWeight: 700, color: "var(--text)" }}>{f.emoji} {f.name}</div>
+                            <span style={{ fontSize: 8, fontWeight: 700, color: "var(--text-muted)", background: FACILIDAD_LABEL[f.facilidad].chip, borderRadius: 999, padding: "2px 5px", whiteSpace: "nowrap" }}>{FACILIDAD_LABEL[f.facilidad].label}</span>
                           </div>
-                          <p style={{ margin: 0, fontSize: 10, color: "var(--text-muted)", lineHeight: 1.4 }}>💡 {f.comoFunciona}</p>
-                          <p style={{ margin: 0, fontSize: 10, color: "var(--green)", lineHeight: 1.4 }}>💰 {f.potencial}</p>
+                          <p style={{ margin: 0, fontSize: 9, color: "var(--text-muted)", lineHeight: 1.35 }}>💡 {f.comoFunciona}</p>
+                          <p style={{ margin: 0, fontSize: 9, color: "var(--green)", lineHeight: 1.35 }}>💰 {f.potencial}</p>
                         </div>
                       ))}
                     </div>
