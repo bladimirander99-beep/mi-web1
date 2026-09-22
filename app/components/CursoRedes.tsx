@@ -1,11 +1,26 @@
 "use client";
+import { useState } from "react";
 import { PLATAFORMAS, PLAT_TIPS, TERABOX_CURSOS } from "@/data/curso";
+import { REQUISITOS_REDES, FORMAS_REDES, FACILIDAD_LABEL } from "@/data/requisitosRedes";
 import { trackEvent } from "@/lib/tracking";
 
 const videoLink = (name: string) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent("cómo monetizar " + name)}`;
 
 export function CursoRedes() {
+  const [openRequisitos, setOpenRequisitos] = useState<Record<string, boolean>>({});
+  const [openFormas, setOpenFormas] = useState<Record<string, boolean>>({});
+
+  const toggleRequisitos = (name: string) => {
+    setOpenRequisitos((prev) => ({ ...prev, [name]: !prev[name] }));
+    trackEvent("toggle_requisitos_redes", { event_category: "curso", event_label: name });
+  };
+
+  const toggleFormas = (name: string) => {
+    setOpenFormas((prev) => ({ ...prev, [name]: !prev[name] }));
+    trackEvent("toggle_formas_redes", { event_category: "curso", event_label: name });
+  };
+
   return (
     <section id="redes" aria-labelledby="curso-title" style={{ background: "var(--dark3)", borderTop: "0.5px solid var(--dark4)", borderBottom: "0.5px solid var(--dark4)", padding: "3.5rem 2rem" }}>
       <div style={{ maxWidth: 1060, margin: "0 auto" }}>
@@ -24,41 +39,104 @@ export function CursoRedes() {
             PLATAFORMAS Y SU POTENCIAL — ELIGE LA TUYA Y MIRA EL VIDEO
           </span>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 400px), 1fr))", gap: 10 }}>
-            {PLATAFORMAS.map((p, i) => (
-              <div key={i} style={{ background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 10, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
-                <div>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)", marginBottom: 2 }}>Monetiza con {p.name}</div>
-                  <div style={{ fontSize: 12, color: "var(--green)" }}>{p.earn}</div>
+            {PLATAFORMAS.map((p, i) => {
+              const requisitos = REQUISITOS_REDES[p.name];
+              const formasRed = FORMAS_REDES[p.name];
+              const isOpenReq = openRequisitos[p.name] || false;
+              const isOpenForm = openFormas[p.name] || false;
+
+              return (
+                <div key={i} style={{ background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 10, padding: "14px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
+                  <div>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: "var(--text)", marginBottom: 2 }}>Monetiza con {p.name}</div>
+                    <div style={{ fontSize: 12, color: "var(--green)" }}>{p.earn}</div>
+                  </div>
+                  <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)", lineHeight: 1.55 }}>
+                    💡 {PLAT_TIPS[p.name]}
+                  </p>
+
+                  {/* 📋 Botón requisitos */}
+                  {requisitos && (
+                    <button
+                      type="button"
+                      onClick={() => toggleRequisitos(p.name)}
+                      style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "9px 12px", fontSize: 11, fontWeight: 700, color: "var(--gold)", background: "rgba(0,198,255,0.06)", border: "0.5px solid var(--gold-dark)", borderRadius: 8, cursor: "pointer" }}
+                    >
+                      <span>📋 Ver requisitos para monetizar</span>
+                      <span style={{ transform: isOpenReq ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>▼</span>
+                    </button>
+                  )}
+
+                  {/* 📋 Lista requisitos */}
+                  {requisitos && isOpenReq && (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      {requisitos.map((r) => (
+                        <div key={r.name} style={{ display: "flex", alignItems: "flex-start", gap: 8, background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "8px 10px" }}>
+                          <span style={{ fontSize: 12, flexShrink: 0 }}>{r.icono}</span>
+                          <div>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text)", marginBottom: 1 }}>{r.name}</div>
+                            <div style={{ fontSize: 10, color: "var(--text-muted)", lineHeight: 1.4 }}>{r.detalle}</div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* 💰 Botón formas de ganar */}
+                  {formasRed && (
+                    <button
+                      type="button"
+                      onClick={() => toggleFormas(p.name)}
+                      style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "9px 12px", fontSize: 11, fontWeight: 700, color: "var(--gold)", background: "rgba(247,196,73,0.06)", border: "0.5px solid var(--gold-dark)", borderRadius: 8, cursor: "pointer" }}
+                    >
+                      <span>💰 Ver {formasRed.length} formas de ganar</span>
+                      <span style={{ transform: isOpenForm ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>▼</span>
+                    </button>
+                  )}
+
+                  {/* 💰 Lista formas de ganar */}
+                  {formasRed && isOpenForm && (
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      {formasRed.map((f) => (
+                        <div key={f.name} style={{ background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "8px 10px", display: "flex", flexDirection: "column", gap: 4 }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 6 }}>
+                            <div style={{ fontSize: 11, fontWeight: 700, color: "var(--text)" }}>{f.emoji} {f.name}</div>
+                            <span style={{ fontSize: 9, fontWeight: 700, color: "var(--text-muted)", background: FACILIDAD_LABEL[f.facilidad].chip, borderRadius: 999, padding: "2px 6px", whiteSpace: "nowrap" }}>{FACILIDAD_LABEL[f.facilidad].label}</span>
+                          </div>
+                          <p style={{ margin: 0, fontSize: 10, color: "var(--text-muted)", lineHeight: 1.4 }}>💡 {f.comoFunciona}</p>
+                          <p style={{ margin: 0, fontSize: 10, color: "var(--green)", lineHeight: 1.4 }}>💰 {f.potencial}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Botón video / curso */}
+                  {!TERABOX_CURSOS[p.name] && (
+                    <a
+                      href={videoLink(p.name)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent("video_monetizar", { event_category: "curso", event_label: p.name })}
+                      style={{ textAlign: "center", fontSize: 12, fontWeight: 600, color: "var(--gold)", background: "rgba(247,196,73,0.08)", border: "0.5px solid var(--gold-dark)", borderRadius: 8, padding: "9px 12px", textDecoration: "none" }}
+                    >
+                      🎬 Aprende a monetizar — mira el video
+                    </a>
+                  )}
+
+                  {TERABOX_CURSOS[p.name] && (
+                    <a
+                      href={TERABOX_CURSOS[p.name]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => trackEvent("curso_terabox", { event_category: "curso", event_label: p.name })}
+                      style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: "#052e16", background: "linear-gradient(90deg, #00e676, #69f0ae)", borderRadius: 8, padding: "10px 12px", textDecoration: "none", boxShadow: "0 4px 18px rgba(0,230,118,0.45)" }}
+                    >
+                      📂 CURSO GRATIS en Terabox — yo lo pagué por ti 💚
+                    </a>
+                  )}
                 </div>
-                <p style={{ margin: 0, fontSize: 12, color: "var(--text-muted)", lineHeight: 1.55 }}>
-                  💡 {PLAT_TIPS[p.name]}
-                </p>
-
-                {!TERABOX_CURSOS[p.name] && (
-                  <a
-                    href={videoLink(p.name)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent("video_monetizar", { event_category: "curso", event_label: p.name })}
-                    style={{ textAlign: "center", fontSize: 12, fontWeight: 600, color: "var(--gold)", background: "rgba(247,196,73,0.08)", border: "0.5px solid var(--gold-dark)", borderRadius: 8, padding: "9px 12px", textDecoration: "none" }}
-                  >
-                    🎬 Aprende a monetizar — mira el video
-                  </a>
-                )}
-
-                {TERABOX_CURSOS[p.name] && (
-                  <a
-                    href={TERABOX_CURSOS[p.name]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => trackEvent("curso_terabox", { event_category: "curso", event_label: p.name })}
-                    style={{ textAlign: "center", fontSize: 12, fontWeight: 800, color: "#052e16", background: "linear-gradient(90deg, #00e676, #69f0ae)", borderRadius: 8, padding: "10px 12px", textDecoration: "none", boxShadow: "0 4px 18px rgba(0,230,118,0.45)" }}
-                  >
-                    📂 CURSO GRATIS en Terabox — yo lo pagué por ti 💚
-                  </a>
-                )}
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
