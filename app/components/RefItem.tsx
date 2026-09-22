@@ -3,6 +3,7 @@ import { useState } from "react";
 import type { RefItem as RefItemType } from "@/types";
 import { EARNING_TIPS } from "@/data/logos";
 import { GUIAS, type Riesgo, type Forma } from "@/data/formas";
+import { REQUISITOS_REDES, FORMAS_REDES, FACILIDAD_LABEL } from "@/data/requisitosRedes";
 import { getImageSlug, getLogoUrl, getFaviconUrl } from "@/lib/utils";
 import { trackReferralClick, trackEvent } from "@/lib/tracking";
 
@@ -11,7 +12,7 @@ interface Props {
   categoryId: string;
 }
 
-/* Descripciones cortas por plataforma (si una no está aquí, usa su desc original) */
+/* Descripciones cortas por plataforma */
 const DESC_CORTAS: Record<string, string> = {
   Binance: "El exchange #1 del mundo: +350 criptos, comisiones bajas y más formas de ganar: Earn, referidos, airdrops y copy trading.",
   Bybit: "Líder en futuros y copy trading: bots gratis, Launchpad y hasta 50% de comisión por referidos.",
@@ -35,15 +36,14 @@ const DESC_CORTAS: Record<string, string> = {
 };
 
 const RIESGO: Record<Riesgo, { chip: string; label: string }> = {
-  BAJO: { chip: "rgba(34,197,94,0.12)", label: "🟢 Riesgo bajo" },
-  MEDIO: { chip: "rgba(247,196,73,0.12)", label: "🟡 Riesgo medio" },
-  ALTO: { chip: "rgba(239,68,68,0.12)", label: "🔴 Riesgo alto" },
+  BAJO: { chip: "rgba(34,197,94,0.12)", label: "⭐ Fácil" },
+  MEDIO: { chip: "rgba(247,196,73,0.12)", label: "⭐⭐ Medio" },
+  ALTO: { chip: "rgba(168,85,247,0.12)", label: "⭐⭐⭐ Avanzado" },
 };
 
 const videoDefault = (plat: string, name: string) =>
   `https://www.youtube.com/results?search_query=${encodeURIComponent("cómo usar " + name + " en " + plat + " paso a paso")}`;
 
-/* Convierte un link de YouTube en URL embebible (para el modal) */
 const embedUrl = (url?: string): string | null => {
   if (!url) return null;
   const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]{11})/);
@@ -53,14 +53,17 @@ const embedUrl = (url?: string): string | null => {
 export function RefItem({ item, categoryId }: Props) {
   const [imgFormat, setImgFormat] = useState<"jpg" | "remote" | "favicon" | "none">("jpg");
   const [showFormas, setShowFormas] = useState(false);
+  const [showRequisitos, setShowRequisitos] = useState(false);
+  const [showFormasRed, setShowFormasRed] = useState(false);
   const [videoForma, setVideoForma] = useState<Forma | null>(null);
   const logoUrl = getLogoUrl(item.name);
   const faviconUrl = getFaviconUrl(item.name);
   const isPending = item.href === "#";
   const slug = getImageSlug(item.name);
   const formas = GUIAS[item.name];
+  const requisitos = REQUISITOS_REDES[item.name];
+  const formasRed = FORMAS_REDES[item.name];
 
-  // 🔑 CRÍTICO SEO: rel="sponsored" le dice a Google que es link de afiliado
   const affiliateRel = "sponsored noopener noreferrer";
 
   const handleClick = () => {
@@ -70,360 +73,149 @@ export function RefItem({ item, categoryId }: Props) {
   const renderIcon = () => {
     if (imgFormat === "jpg")
       return (
-        <img
-          src={`/imagenes/${slug}.jpg`}
-          alt={`Logo de ${item.name}`}
-          width={28}
-          height={28}
-          loading="lazy"
-          decoding="async"
-          onError={() => setImgFormat("remote")}
-          style={{ borderRadius: 6, objectFit: "contain", background: "white", padding: 2, flexShrink: 0 }}
-        />
+        <img src={`/imagenes/${slug}.jpg`} alt={`Logo de ${item.name}`} width={28} height={28} loading="lazy" decoding="async" onError={() => setImgFormat("remote")} style={{ borderRadius: 6, objectFit: "contain", background: "white", padding: 2, flexShrink: 0 }} />
       );
     if (imgFormat === "remote" && logoUrl)
       return (
-        <img
-          src={logoUrl}
-          alt={`Logo de ${item.name}`}
-          width={28}
-          height={28}
-          loading="lazy"
-          decoding="async"
-          onError={() => setImgFormat("favicon")}
-          style={{ borderRadius: 6, objectFit: "contain", background: "white", padding: 2, flexShrink: 0 }}
-        />
+        <img src={logoUrl} alt={`Logo de ${item.name}`} width={28} height={28} loading="lazy" decoding="async" onError={() => setImgFormat("favicon")} style={{ borderRadius: 6, objectFit: "contain", background: "white", padding: 2, flexShrink: 0 }} />
       );
     if (imgFormat === "favicon" && faviconUrl)
       return (
-        <img
-          src={faviconUrl}
-          alt={`Logo de ${item.name}`}
-          width={28}
-          height={28}
-          loading="lazy"
-          style={{ borderRadius: 6, objectFit: "contain", flexShrink: 0 }}
-        />
+        <img src={faviconUrl} alt={`Logo de ${item.name}`} width={28} height={28} loading="lazy" style={{ borderRadius: 6, objectFit: "contain", flexShrink: 0 }} />
       );
     return (
-      <div
-        style={{ width: 28, height: 28, borderRadius: 6, background: "var(--dark4)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, color: "var(--gold)" }}
-        aria-hidden="true"
-      >
+      <div style={{ width: 28, height: 28, borderRadius: 6, background: "var(--dark4)", flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, color: "var(--gold)" }} aria-hidden="true">
         {item.name[0]}
       </div>
     );
   };
 
   return (
-    <article
-      style={{
-        border: `0.5px solid ${item.hot ? "var(--gold-dark)" : "var(--dark4)"}`,
-        borderRadius: 8,
-        overflow: "hidden",
-        opacity: isPending ? 0.5 : 1,
-      }}
-      aria-label={`Plataforma ${item.name}${isPending ? " (próximamente)" : ""}`}
-    >
+    <article style={{ border: `0.5px solid ${item.hot ? "var(--gold-dark)" : "var(--dark4)"}`, borderRadius: 8, overflow: "hidden", opacity: isPending ? 0.5 : 1 }} aria-label={`Plataforma ${item.name}${isPending ? " (próximamente)" : ""}`}>
       {/* Link principal de afiliado */}
-      <a
-        href={isPending ? undefined : item.href}
-        target="_blank"
-        rel={affiliateRel}
-        onClick={(e) => {
-          if (isPending) e.preventDefault();
-          else handleClick();
-        }}
-        aria-disabled={isPending}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          padding: "10px 12px",
-          textDecoration: "none",
-          background: "var(--dark3)",
-          color: "var(--text)",
-          fontSize: 13,
-          borderBottom: "0.5px solid var(--dark4)",
-        }}
-      >
+      <a href={isPending ? undefined : item.href} target="_blank" rel={affiliateRel} onClick={(e) => { if (isPending) e.preventDefault(); else handleClick(); }} aria-disabled={isPending} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", textDecoration: "none", background: "var(--dark3)", color: "var(--text)", fontSize: 13, borderBottom: "0.5px solid var(--dark4)" }}>
         {renderIcon()}
         <span style={{ flex: 1, fontWeight: 500 }}>{item.name}</span>
-        <span
-          style={{
-            fontSize: 11,
-            padding: "2px 8px",
-            borderRadius: 10,
-            whiteSpace: "nowrap",
-            background: item.hot ? "rgba(0,198,255,0.15)" : "var(--dark4)",
-            color: item.hot ? "var(--gold-light)" : "var(--gold)",
-            border: `0.5px solid ${item.hot ? "var(--gold)" : "var(--gold-dark)"}`,
-          }}
-        >
-          {item.badge}
-        </span>
+        <span style={{ fontSize: 11, padding: "2px 8px", borderRadius: 10, whiteSpace: "nowrap", background: item.hot ? "rgba(0,198,255,0.15)" : "var(--dark4)", color: item.hot ? "var(--gold-light)" : "var(--gold)", border: `0.5px solid ${item.hot ? "var(--gold)" : "var(--gold-dark)"}` }}>{item.badge}</span>
       </a>
 
       {/* Sección "cómo ganar" */}
       {!isPending && EARNING_TIPS[item.name] && (
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: 12,
-            padding: "12px 14px",
-            background: "linear-gradient(135deg, #0A1628 0%, #0F2040 100%)",
-            borderBottom: "0.5px solid var(--dark4)",
-          }}
-        >
-          <img
-            src={`/imagenes/${slug}.jpg`}
-            alt={`Logo de ${item.name}`}
-            width={44}
-            height={44}
-            loading="lazy"
-            decoding="async"
-            onError={(e) => {
-              const t = e.currentTarget;
-              if (t.src.endsWith(".jpg") && logoUrl) t.src = logoUrl;
-              else t.style.display = "none";
-            }}
-            style={{ objectFit: "contain", background: "white", borderRadius: 8, padding: 4, flexShrink: 0 }}
-          />
+        <div style={{ display: "flex", alignItems: "flex-start", gap: 12, padding: "12px 14px", background: "linear-gradient(135deg, #0A1628 0%, #0F2040 100%)", borderBottom: "0.5px solid var(--dark4)" }}>
+          <img src={`/imagenes/${slug}.jpg`} alt={`Logo de ${item.name}`} width={44} height={44} loading="lazy" decoding="async" onError={(e) => { const t = e.currentTarget; if (t.src.endsWith(".jpg") && logoUrl) t.src = logoUrl; else t.style.display = "none"; }} style={{ objectFit: "contain", background: "white", borderRadius: 8, padding: 4, flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
-            <div
-              style={{
-                fontSize: 10,
-                fontWeight: 700,
-                color: "var(--gold)",
-                letterSpacing: "1px",
-                marginBottom: 3,
-              }}
-            >
-              💰 CÓMO GANAR CON {item.name.toUpperCase()}
-            </div>
-            <p style={{ fontSize: 12, color: "#B8D5EA", lineHeight: 1.6, margin: 0 }}>
-              {EARNING_TIPS[item.name]}
-            </p>
-            <a
-              href={item.href}
-              target="_blank"
-              rel={affiliateRel}
-              onClick={handleClick}
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 4,
-                marginTop: 6,
-                fontSize: 11,
-                color: "var(--gold)",
-                textDecoration: "none",
-                background: "rgba(0,198,255,0.1)",
-                border: "0.5px solid var(--gold-dark)",
-                borderRadius: 20,
-                padding: "3px 10px",
-              }}
-            >
-              🚀 Registrarte ahora →
-            </a>
+            <div style={{ fontSize: 10, fontWeight: 700, color: "var(--gold)", letterSpacing: "1px", marginBottom: 3 }}>💰 CÓMO GANAR CON {item.name.toUpperCase()}</div>
+            <p style={{ fontSize: 12, color: "#B8D5EA", lineHeight: 1.6, margin: 0 }}>{EARNING_TIPS[item.name]}</p>
+            <a href={item.href} target="_blank" rel={affiliateRel} onClick={handleClick} style={{ display: "inline-flex", alignItems: "center", gap: 4, marginTop: 6, fontSize: 11, color: "var(--gold)", textDecoration: "none", background: "rgba(0,198,255,0.1)", border: "0.5px solid var(--gold-dark)", borderRadius: 20, padding: "3px 10px" }}>🚀 Registrarte ahora →</a>
           </div>
         </div>
       )}
 
       {/* Descripción corta */}
       {!isPending && (DESC_CORTAS[item.name] || item.desc) && (
-        <div
-          style={{
-            padding: "10px 14px",
-            background: "var(--dark2)",
-            borderBottom: "0.5px solid var(--dark4)",
-          }}
-        >
-          <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
-            {DESC_CORTAS[item.name] ?? item.desc}
-          </p>
+        <div style={{ padding: "10px 14px", background: "var(--dark2)", borderBottom: "0.5px solid var(--dark4)" }}>
+          <p style={{ fontSize: 12, color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>{DESC_CORTAS[item.name] ?? item.desc}</p>
         </div>
       )}
 
-      {/* Botón de formas de ganar */}
+      {/* 📋 Botón de requisitos de monetización (solo redes sociales) */}
+      {!isPending && requisitos && (
+        <button type="button" onClick={() => { setShowRequisitos(!showRequisitos); trackEvent("toggle_requisitos", { event_category: item.name, event_label: showRequisitos ? "cerrar" : "abrir" }); }} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", fontSize: 12, fontWeight: 700, color: "var(--gold)", background: "rgba(0,198,255,0.06)", border: "none", borderBottom: "0.5px solid var(--dark4)", cursor: "pointer" }}>
+          <span>📋 Ver requisitos para monetizar {item.name}</span>
+          <span style={{ transform: showRequisitos ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>▼</span>
+        </button>
+      )}
+
+      {/* 📋 Lista desplegable de requisitos */}
+      {!isPending && requisitos && showRequisitos && (
+        <div style={{ padding: "12px 14px", background: "var(--dark3)", borderBottom: "0.5px solid var(--dark4)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {requisitos.map((r) => (
+              <div key={r.name} style={{ display: "flex", alignItems: "flex-start", gap: 10, background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 8, padding: "10px 12px" }}>
+                <span style={{ fontSize: 14, flexShrink: 0 }}>{r.icono}</span>
+                <div>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: "var(--text)", marginBottom: 2 }}>{r.name}</div>
+                  <div style={{ fontSize: 11, color: "var(--text-muted)", lineHeight: 1.5 }}>{r.detalle}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 💰 Botón de formas de ganar con redes (solo redes sociales) */}
+      {!isPending && formasRed && (
+        <button type="button" onClick={() => { setShowFormasRed(!showFormasRed); trackEvent("toggle_formas_red", { event_category: item.name, event_label: showFormasRed ? "cerrar" : "abrir" }); }} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", fontSize: 12, fontWeight: 700, color: "var(--gold)", background: "rgba(247,196,73,0.06)", border: "none", borderBottom: "0.5px solid var(--dark4)", cursor: "pointer" }}>
+          <span>💰 Ver {formasRed.length} formas de ganar con {item.name}</span>
+          <span style={{ transform: showFormasRed ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>▼</span>
+        </button>
+      )}
+
+      {/* 💰 Lista desplegable de formas de ganar con redes */}
+      {!isPending && formasRed && showFormasRed && (
+        <div style={{ padding: "12px 14px", background: "var(--dark3)", borderBottom: "0.5px solid var(--dark4)" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+            {formasRed.map((f) => (
+              <div key={f.name} style={{ background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 8, padding: "10px 12px", display: "flex", flexDirection: "column", gap: 6 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>{f.emoji} {f.name}</div>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text-muted)", background: FACILIDAD_LABEL[f.facilidad].chip, borderRadius: 999, padding: "3px 8px", whiteSpace: "nowrap" }}>{FACILIDAD_LABEL[f.facilidad].label}</span>
+                </div>
+                <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.5 }}>💡 <strong style={{ color: "var(--text)" }}>Cómo funciona:</strong> {f.comoFunciona}</p>
+                <p style={{ margin: 0, fontSize: 11, color: "var(--green)", lineHeight: 1.5 }}>💰 <strong>Potencial:</strong> {f.potencial}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 💰 Botón de formas de ganar (exchanges, wallets, etc.) */}
       {!isPending && formas && (
-        <button
-          type="button"
-          onClick={() => {
-            setShowFormas(!showFormas);
-            trackEvent("toggle_formas", { event_category: item.name, event_label: showFormas ? "cerrar" : "abrir" });
-          }}
-          style={{
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "10px 14px",
-            fontSize: 12,
-            fontWeight: 700,
-            color: "var(--gold)",
-            background: "rgba(247,196,73,0.06)",
-            border: "none",
-            borderBottom: "0.5px solid var(--dark4)",
-            cursor: "pointer",
-          }}
-        >
+        <button type="button" onClick={() => { setShowFormas(!showFormas); trackEvent("toggle_formas", { event_category: item.name, event_label: showFormas ? "cerrar" : "abrir" }); }} style={{ width: "100%", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px 14px", fontSize: 12, fontWeight: 700, color: "var(--gold)", background: "rgba(247,196,73,0.06)", border: "none", borderBottom: "0.5px solid var(--dark4)", cursor: "pointer" }}>
           <span>💰 Ver {formas.length} formas de ganar con {item.name}</span>
           <span style={{ transform: showFormas ? "rotate(180deg)" : "rotate(0)", transition: "transform 0.2s" }}>▼</span>
         </button>
       )}
 
-      {/* Lista desplegable de formas de ganar */}
+      {/* 💰 Lista desplegable de formas de ganar (exchanges, wallets, etc.) */}
       {!isPending && formas && showFormas && (
         <div style={{ padding: "12px 14px", background: "var(--dark3)", borderBottom: "0.5px solid var(--dark4)" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
             {formas.map((f) => (
-              <div
-                key={f.name}
-                style={{
-                  background: "var(--dark2)",
-                  border: "0.5px solid var(--dark4)",
-                  borderRadius: 8,
-                  padding: "10px 12px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 6,
-                }}
-              >
+              <div key={f.name} style={{ background: "var(--dark2)", border: "0.5px solid var(--dark4)", borderRadius: 8, padding: "10px 12px", display: "flex", flexDirection: "column", gap: 6 }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 8 }}>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>
-                    {f.emoji} {f.name}
-                  </div>
-                  <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text-muted)", background: RIESGO[f.riesgo].chip, borderRadius: 999, padding: "3px 8px", whiteSpace: "nowrap" }}>
-                    {RIESGO[f.riesgo].label}
-                  </span>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: "var(--text)" }}>{f.emoji} {f.name}</div>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: "var(--text-muted)", background: RIESGO[f.riesgo].chip, borderRadius: 999, padding: "3px 8px", whiteSpace: "nowrap" }}>{RIESGO[f.riesgo].label}</span>
                 </div>
-                <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.5 }}>
-                  🚀 <strong style={{ color: "var(--text)" }}>Empieza:</strong> {f.empezar}
-                </p>
+                <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.5 }}>🚀 <strong style={{ color: "var(--text)" }}>Empieza:</strong> {f.empezar}</p>
                 {f.detalle && (
-                  <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.6, background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "8px 10px" }}>
-                    📖 {f.detalle}
-                  </p>
+                  <p style={{ margin: 0, fontSize: 11, color: "var(--text-muted)", lineHeight: 1.6, background: "var(--dark3)", border: "0.5px solid var(--dark4)", borderRadius: 6, padding: "8px 10px" }}>📖 {f.detalle}</p>
                 )}
-                <button
-                  type="button"
-                  onClick={() => {
-                    trackEvent("video_forma", { event_category: item.name, event_label: f.name });
-                    setVideoForma(f);
-                  }}
-                  style={{
-                    textAlign: "center",
-                    fontSize: 11,
-                    fontWeight: 600,
-                    color: "var(--gold)",
-                    background: "rgba(247,196,73,0.08)",
-                    border: "0.5px solid var(--gold-dark)",
-                    borderRadius: 6,
-                    padding: "7px 10px",
-                    cursor: "pointer",
-                  }}
-                >
-                  🎬 Video instructivo
-                </button>
+                <button type="button" onClick={() => { trackEvent("video_forma", { event_category: item.name, event_label: f.name }); setVideoForma(f); }} style={{ textAlign: "center", fontSize: 11, fontWeight: 600, color: "var(--gold)", background: "rgba(247,196,73,0.08)", border: "0.5px solid var(--gold-dark)", borderRadius: 6, padding: "7px 10px", cursor: "pointer" }}>🎬 Video instructivo</button>
               </div>
             ))}
           </div>
-          <p style={{ marginTop: 10, textAlign: "center", fontSize: 11, fontWeight: 700, color: "var(--gold)" }}>
-            🥇 80% en 🟢 · 15% en 🟡 · 5% en 🔴
-          </p>
+          <p style={{ marginTop: 10, textAlign: "center", fontSize: 11, fontWeight: 700, color: "var(--gold)" }}>🥇 80% en ⭐ · 15% en ⭐⭐ · 5% en ⭐⭐⭐</p>
         </div>
       )}
 
       {/* 🎬 VENTANA FLOTANTE (modal) con el video de la forma */}
       {videoForma && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Video instructivo: ${videoForma.name}`}
-          onClick={() => setVideoForma(null)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            zIndex: 999,
-            background: "rgba(0,0,0,0.8)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "1rem",
-          }}
-        >
-          <div
-            onClick={(e) => e.stopPropagation()}
-            style={{
-              background: "var(--dark2)",
-              border: "0.5px solid var(--gold-dark)",
-              borderRadius: 12,
-              maxWidth: 720,
-              width: "100%",
-              padding: "1rem",
-              position: "relative",
-            }}
-          >
-            <button
-              type="button"
-              onClick={() => setVideoForma(null)}
-              aria-label="Cerrar video"
-              style={{
-                position: "absolute",
-                top: 8,
-                right: 8,
-                background: "var(--dark4)",
-                border: "none",
-                color: "var(--text)",
-                borderRadius: 6,
-                width: 28,
-                height: 28,
-                cursor: "pointer",
-                fontWeight: 700,
-              }}
-            >
-              ✕
-            </button>
-            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--gold)", marginBottom: 8, paddingRight: 32 }}>
-              🎬 {videoForma.emoji} {videoForma.name} — Video instructivo
-            </div>
-
+        <div role="dialog" aria-modal="true" aria-label={`Video instructivo: ${videoForma.name}`} onClick={() => setVideoForma(null)} style={{ position: "fixed", inset: 0, zIndex: 999, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1rem" }}>
+          <div onClick={(e) => e.stopPropagation()} style={{ background: "var(--dark2)", border: "0.5px solid var(--gold-dark)", borderRadius: 12, maxWidth: 720, width: "100%", padding: "1rem", position: "relative" }}>
+            <button type="button" onClick={() => setVideoForma(null)} aria-label="Cerrar video" style={{ position: "absolute", top: 8, right: 8, background: "var(--dark4)", border: "none", color: "var(--text)", borderRadius: 6, width: 28, height: 28, cursor: "pointer", fontWeight: 700 }}>✕</button>
+            <div style={{ fontSize: 13, fontWeight: 700, color: "var(--gold)", marginBottom: 8, paddingRight: 32 }}>🎬 {videoForma.emoji} {videoForma.name} — Video instructivo</div>
             {embedUrl(videoForma.video) ? (
               <div style={{ position: "relative", paddingTop: "56.25%", borderRadius: 8, overflow: "hidden", background: "#000" }}>
-                <iframe
-                  src={embedUrl(videoForma.video)!}
-                  title={`Video instructivo: ${videoForma.name}`}
-                  style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
+                <iframe src={embedUrl(videoForma.video)!} title={`Video instructivo: ${videoForma.name}`} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", border: "none" }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
               </div>
             ) : (
               <div style={{ borderRadius: 8, border: "0.5px solid var(--dark4)", background: "var(--dark3)", padding: "2rem 1rem", textAlign: "center" }}>
                 <div style={{ fontSize: 32, marginBottom: 8 }}>🎥</div>
-                                   <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 12px", lineHeight: 1.6 }}>
-                  {videoForma.video
-                    ? "Tu video está alojado fuera de YouTube (Terabox u otro). Ábrelo en pestaña nueva para verlo:"
-                    : "Aún no tengo el video perfecto para esta forma, pero estoy trabajando en él. No quiero mostrarte cualquier cosa: quiero mostrarte lo que SÍ funciona. Mientras tanto: ve en YouTube:"}
+                <p style={{ fontSize: 12, color: "var(--text-muted)", margin: "0 0 12px", lineHeight: 1.6 }}>
+                  {videoForma.video ? "Tu video está alojado fuera de YouTube (Terabox u otro). Ábrelo en pestaña nueva para verlo:" : "Aún no tengo el video perfecto para esta forma, pero estoy trabajando en él. No quiero mostrarte cualquier cosa: quiero mostrarte lo que SÍ funciona. Mientras tanto: ve en YouTube:"}
                 </p>
-                <a
-                  href={videoForma.video ?? videoDefault(item.name, videoForma.name)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: "inline-block",
-                    fontSize: 12,
-                    fontWeight: 800,
-                    color: "#052e16",
-                    background: "linear-gradient(90deg, #00e676, #69f0ae)",
-                    borderRadius: 8,
-                    padding: "9px 14px",
-                    textDecoration: "none",
-                  }}
-                >
-                  ▶ Abrir video ahora
-                </a>
+                <a href={videoForma.video ?? videoDefault(item.name, videoForma.name)} target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", fontSize: 12, fontWeight: 800, color: "#052e16", background: "linear-gradient(90deg, #00e676, #69f0ae)", borderRadius: 8, padding: "9px 14px", textDecoration: "none" }}>▶ Abrir video ahora</a>
               </div>
             )}
           </div>
